@@ -1,0 +1,15 @@
+.account-container {
+    display: flex;
+    height: 100%;
+}
+
+.sidebar {
+    width: 200px;
+    background-color: #f4f4f4;
+    padding: 16px;
+}
+
+.content {
+    flex: 1;
+    padding: 16px;
+}
