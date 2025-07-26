@@ -1,11 +1,111 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Model } from 'survey-core';
+import { SurveyModule } from 'survey-angular-ui';
+
+const surveyJson = {
+  title: 'Sign Up',
+  description: 'Please fill in the details to create an account.',
+  completedHtml: '<div style="text-align: center; height: 100%; max-width:540px; text-align:center; margin:0px auto 16px auto; border: 1px solid rgba(0,0,0,0.25); padding:40px 48px 48px 48px;background-color:#fff;"><h3>Thank you for signing up!</h3><p>Your account has been created successfully. You will receive a confirmation email shortly.</p></div>',
+  pages: [
+    {
+      name: 'signUpPage',
+      elements: [
+        {
+          type: 'panel',
+          name: 'signUpPanel',
+          elements: [
+            {
+              type: 'text',
+              name: 'name',
+              title: 'Name',
+              isRequired: true,
+            },
+            {
+              type: 'text',
+              name: 'surname',
+              title: 'Surname',
+              isRequired: true,
+            },
+            {
+              type: 'text',
+              name: 'email',
+              title: 'Email',
+              isRequired: true,
+              validators: [
+                {
+                  type: 'email',
+                },
+              ],
+            },
+            {
+              type: 'text',
+              name: 'password',
+              title: 'Password',
+              isRequired: true,
+              inputType: 'password',
+            },
+            {
+              type: 'text',
+              name: 'confirmPassword',
+              title: 'Confirm Password',
+              isRequired: true,
+              inputType: 'password',
+            },
+          ],
+        },
+      ],
+    },
+  ],
+  completeText: 'Sign Up',
+};
 
 @Component({
   selector: 'app-sign-up',
-  imports: [],
+  imports: [SurveyModule],
   templateUrl: './sign-up.component.html',
-  styleUrl: './sign-up.component.scss'
+  styleUrl: './sign-up.component.scss',
 })
-export class SignUpComponent {
+export class SignUpComponent implements OnInit {
+  survey: Model;
 
+  constructor() {
+    this.survey = new Model(surveyJson);
+    this.setupValidation();
+  }
+
+  private setupValidation(): void {
+    // Validate password confirmation
+    this.survey.onValidateQuestion.add((survey, options) => {
+      if (options.name === 'confirmPassword') {
+        const password = survey.getValue('password');
+        const confirmPassword = options.value;
+        if (password !== confirmPassword) {
+          options.error = 'Passwords do not match';
+        }
+      }
+    });
+
+    // Also validate when password field changes
+    this.survey.onValueChanged.add((survey, options) => {
+      if (options.name === 'password') {
+        const confirmPassword = survey.getValue('confirmPassword');
+        if (confirmPassword) {
+          // Trigger validation for confirm password field
+          const confirmPasswordQuestion =
+            survey.getQuestionByName('confirmPassword');
+          if (confirmPasswordQuestion) {
+            confirmPasswordQuestion.hasErrors();
+          }
+        }
+      }
+    });
+  }
+
+  ngOnInit(): void {
+    // Handle survey completion
+    this.survey.onComplete.add((survey) => {
+      console.log('Survey results:', survey.data);
+      // Handle the survey data here
+    });
+  }
 }
