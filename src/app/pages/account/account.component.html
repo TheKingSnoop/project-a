@@ -1,22 +1,100 @@
-<div class="account-container">
-  <div class="sidebar">
-    <mat-list>
-      <div mat-subheader>Invoices</div>
-      @for (invoice of invoices; track invoice) {
-      <mat-list-item>
+<mat-sidenav-container>
+  <!--SideNav-->
+  <mat-sidenav opened mode="side" [style.width]="sideNavMenuCollapsed() ? '65px' : '250px'">
+    <div class="menu-button">
+    </div>
+    <div class="sidenav-header">
+      <mat-icon class="large-icon" [class]="avatarSize()">account_circle</mat-icon>
+      <h3 *ngIf="!sideNavMenuCollapsed()">Mizz Molly</h3>
+    </div>
+    <mat-nav-list>
+      <mat-list-item-title mat-subheader *ngIf="!sideNavMenuCollapsed()">Invoices</mat-list-item-title>
+      <mat-list-item *ngFor="let invoice of invoices let i = index" (click)="selectedInvoice.set(i)">
         <mat-icon matListItemIcon>article</mat-icon>
-        <div matListItemTitle>{{ invoice.name }}</div>
-        <div matListItemLine>{{ invoice.updated | date }}</div>
+        <h2 matListItemTitle *ngIf="!sideNavMenuCollapsed()">{{ invoice.name }}</h2>
+        <h2 matListItemLine *ngIf="!sideNavMenuCollapsed()">{{ invoice.updated | date }}</h2>
       </mat-list-item>
-      }
-      <mat-divider></mat-divider>
-      <div mat-subheader>Create Invoice</div>
-      <button mat-button>New Invoice</button>
-    </mat-list>
+    </mat-nav-list>
+  </mat-sidenav>
+  <!-- Main Content -->
+  <mat-sidenav-content [style.marginLeft]="sideNavWidthTest()">
+    <h2>{{invoices[selectedInvoice()].name}}</h2>
+    <p>{{invoices[selectedInvoice()].updated | date}}</p>
+    <div class="boxes">
+      <!--Dummy Data-->
+      <div class="your-company">
+        <h3>YOUR COMPANY:</h3>
+        <p>ABC Corp</p>
+        <p>01 Street Name</p>
+        <p>City</p>
+        <p>Post Code</p>
+        <p>email.com</p>
+        <p>07912345678</p>
+      </div>
+      <div class="box-2">
+        <div class="invoice-information">
+        <div class="bill-to">
+          <h3>BILL TO:</h3>
+          <p>Client Name</p>
+          <p>02 Street Name</p>
+          <p>City</p>
+          <p>Post Code</p>
+          <p>email.com</p>
+        </div>
+        <div class="invoice-details">
+        <h3>INVOICE</h3>
+        <p>Reference Number: 123456</p>
+        <p>Issue Date: 12/12/2025</p>
+        <p>Due Date: 12/12/2025</p>
+        </div>
+      </div>
+      <div class="invoice-calculation">
+        <div class="invoice-description">
+          <table class="invoice-table">
+            <thead>
+              <tr>
+                <th>Description</th>
+                <th>Quantity</th>
+                <th>Unit Price</th>
+                <th>Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Website Development</td>
+                <td>1</td>
+                <td>£800.00</td>
+                <td>£800.00</td>
+              </tr>
+              <tr>
+                <td>Logo Design</td>
+                <td>2</td>
+                <td>£50.00</td>
+                <td>£100.00</td>
+              </tr>
+              <tr>
+                <td>Hosting Setup</td>
+                <td>1</td>
+                <td>£100.00</td>
+                <td>£100.00</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="invoice-total">
+          <h3>INVOICE TOTAL</h3>
+        <p>Subtotal: £1000.00</p>
+        <p>VAT (20%): £200.00</p>
+        <p>Total: £1200.00</p>
+        </div>
+      </div>
+    </div>
+    <div class="pay-by-bank-transfer">
+      <h3>PAY BY BANK TRANSFER</h3>
+      <p>Bank Sort code: 123456</p>
+      <p>Bank Account Number: 12345678</p>
+      <p>Bank Name: ABC Bank</p>
+    </div>
   </div>
-  <div class="content">
-    <h1>Account Page</h1>
-    <p>Details of invoices here</p>
-    <p>Manage your account settings and preferences here.</p>
-  </div>
-</div>
+  </mat-sidenav-content>
+</mat-sidenav-container>
