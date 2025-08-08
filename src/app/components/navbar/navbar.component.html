@@ -1,9 +1,14 @@
-<div class="navbar-container">
+<mat-toolbar class="mat-elevation-z3 navbar-container">
     <div class="navbar-left">
-        <h3 (click)="navigateToHome()">My Application</h3>
+        <button mat-icon-button class="navbar-toggle" *ngIf="isAccountPage()" (click)="toggleSideMenu()">
+            <mat-icon>menu</mat-icon>
+        </button>
+      <button mat-button (click)="navigateToPage('')">
+        My Application
+    </button>  
     </div>
     <div class="navbar-right">
-        <button mat-button id= "sign-up-button" (click)="navigateToSignUp()">Sign Up</button>
-        <button mat-button id= "login-button" (click)="navigateToLogin()">Login</button>
+        <button mat-button (click)="navigateToPage('sign-up')">Sign Up</button>
+        <button mat-button (click)="navigateToPage('login')">Login</button>
     </div>
-</div>
+</mat-toolbar>

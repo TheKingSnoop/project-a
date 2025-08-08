@@ -1,0 +1,18 @@
+@use '@angular/material' as mat;
+@use './themes/bluetheme.css';
+
+html {
+    color-scheme: light;
+    @include mat.theme(
+        (
+            // typography: Inter,
+        )
+    )   ;
+}
+
+.tertiary {
+    @include mat.button-overrides((
+        filled-container-color: var(--mat-sys-tertiary),
+        filled-label-text-color: var(--mat-sys-on-tertiary),
+    ));
+}

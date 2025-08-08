@@ -13,13 +13,7 @@ export class HomeComponent {
 
   constructor(private router: Router) {}
 
-  // Navigate to the account page
-  navigateToAccount() {
-    this.router.navigate(['/account']);
+ navigateToPage(page: string) {
+    this.router.navigate([`/${page}`]);
   }
-
-  navigateToSignUp() {
-    this.router.navigate(['/sign-up']);
-  }
-  
 }

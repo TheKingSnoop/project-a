@@ -1,10 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatIconModule} from '@angular/material/icon';
-import {DatePipe} from '@angular/common';
 import {MatListModule} from '@angular/material/list';
 import { MatButtonModule } from '@angular/material/button';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import { CommonModule } from '@angular/common';
+import { SignalService } from '../../services/signal.service';
 
 export interface Section {
   name: string;
@@ -13,7 +15,7 @@ export interface Section {
 
 @Component({
   selector: 'app-account',
-  imports: [MatListModule, MatIconModule, MatDividerModule, DatePipe, MatButtonModule],
+  imports: [MatListModule, MatIconModule, MatDividerModule, MatButtonModule, MatSidenavModule, CommonModule],
   templateUrl: './account.component.html',
   styleUrl: './account.component.scss'
 })
@@ -37,4 +39,12 @@ export class AccountComponent {
     },
   ];
 
+  signalService = inject(SignalService);
+  sideNavMenuCollapsed = this.signalService.collapsedSideMenu;
+  sideNavWidth = computed(() => this.sideNavMenuCollapsed() ? '65px' : '250px');
+  avatarSize = computed(() => this.sideNavMenuCollapsed() ? 'small-avatar' : 'large-avatar');
+  selectedInvoice = signal<number>(0);
+
+  
+  sideNavWidthTest = computed(() => this.sideNavMenuCollapsed() ? '65px' : '250px');
 }
