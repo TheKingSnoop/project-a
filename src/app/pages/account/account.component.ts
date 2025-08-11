@@ -7,15 +7,25 @@ import { MatButtonModule } from '@angular/material/button';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import { CommonModule } from '@angular/common';
 import { SignalService } from '../../services/signal.service';
+import {MatGridListModule} from '@angular/material/grid-list';
+import {MatTableModule} from '@angular/material/table';
+
 
 export interface Section {
   name: string;
   updated: Date;
 }
 
+export interface InvoiceData {
+  description: string;
+  quantity: number;
+  unitPrice: number;
+  amount: number;
+}
+
 @Component({
   selector: 'app-account',
-  imports: [MatListModule, MatIconModule, MatDividerModule, MatButtonModule, MatSidenavModule, CommonModule],
+  imports: [MatListModule, MatIconModule, MatDividerModule, MatButtonModule, MatSidenavModule, CommonModule, MatGridListModule, MatTableModule],
   templateUrl: './account.component.html',
   styleUrl: './account.component.scss'
 })
@@ -38,6 +48,32 @@ export class AccountComponent {
       updated: new Date('1/28/16'),
     },
   ];
+
+  invoiceData: InvoiceData[] = [
+    {
+      description: 'Website Development',
+      quantity: 1,
+      unitPrice: 800,
+      amount: 800
+    },
+    {
+      description: 'Logo Design',
+      quantity: 2,
+      unitPrice: 50,
+      amount: 100
+    },
+    {
+      description: 'Hosting Setup',
+      quantity: 1,
+      unitPrice: 100,
+      amount: 100
+    }
+  ];
+
+
+  displayedColumns: string[] = ['description', 'quantity', 'unitPrice', 'amount'];
+  dataSource = this.invoiceData;
+
 
   signalService = inject(SignalService);
   sideNavMenuCollapsed = this.signalService.collapsedSideMenu;
