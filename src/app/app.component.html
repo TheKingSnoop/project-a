@@ -1,3 +1,4 @@
 <app-navbar></app-navbar>
-<router-outlet />
+<app-sidebar *ngIf="isAccountsPage"></app-sidebar>
+<router-outlet *ngIf="!isAccountsPage"></router-outlet>
 <app-footer></app-footer>

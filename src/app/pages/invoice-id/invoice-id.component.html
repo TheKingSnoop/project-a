@@ -1,0 +1,80 @@
+<h1>Invoice: {{ invoiceId() }}</h1>
+<mat-grid-list cols="2" rowHeight="300px">
+      <mat-grid-tile colspan="2" rows="2">
+        <div class="invoice-tile">
+          <h3>YOUR COMPANY:</h3>
+          <p>ABC Corp</p>
+          <p>01 Street Name</p>
+          <p>City</p>
+          <p>Post Code</p>
+          <p>email.com</p>
+          <p>07912345678</p>
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile [colspan]="columnSpan()" rowspan="1">
+        <div class="invoice-tile">
+          <h3>BILL TO:</h3>
+          <p>Client Name</p>
+          <p>02 Street Name</p>
+          <p>City</p>
+          <p>Post Code</p>
+          <p>email.com</p>
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile [colspan]="columnSpan()" rowspan="1">
+        <div class="invoice-tile invoice-total">
+          <h3>INVOICE:</h3>
+          <p>Reference Number: 123456</p>
+          <p>Issue Date: 12/12/2025</p>
+          <p>Due Date: 12/12/2025</p>
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile colspan="2" rowspan="2">
+        <div class="invoice-tile">
+          <table mat-table [dataSource]="invoiceData">
+            <ng-container matColumnDef="description">
+              <th mat-header-cell *matHeaderCellDef>Description</th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.description }}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="quantity">
+              <th mat-header-cell *matHeaderCellDef>Quantity</th>
+              <td mat-cell *matCellDef="let element">{{ element.quantity }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="unitPrice">
+              <th mat-header-cell *matHeaderCellDef>Unit Price</th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.unitPrice | currency : "GBP" : "symbol" : "1.2-2" }}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="amount">
+              <th mat-header-cell *matHeaderCellDef>Amount</th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.amount | currency : "GBP" : "symbol" : "1.2-2" }}
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+          </table>
+          <div class="invoice-total">
+            <h3>INVOICE TOTAL:</h3>
+            <p>Subtotal: £1000.00</p>
+            <p>VAT (20%): £200.00</p>
+            <p>Total: £1200.00</p>
+          </div>
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile colspan="2" rowspan="1">
+        <div class="invoice-tile">
+          <h3>PAY BY BANK TRANSFER:</h3>
+          <p>Bank Sort code: 123456</p>
+          <p>Bank Account Number: 12345678</p>
+          <p>Bank Name: ABC Bank</p>
+        </div>
+      </mat-grid-tile>
+    </mat-grid-list>

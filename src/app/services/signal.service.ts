@@ -4,6 +4,12 @@ import { Injectable, signal} from '@angular/core';
   providedIn: 'root'
 })
 export class SignalService {
-  collapsedSideMenu = signal(false);
+  private _isOpen = signal(true);
+  
+  isOpen = this._isOpen.asReadonly();
+  
+  toggle(): void {
+    this._isOpen.set(!this._isOpen());
+  }
 }
 
