@@ -1,0 +1,33 @@
+@use '@angular/material' as mat;
+
+//sidenav
+mat-sidenav-container {
+    height: calc(100vh - 64px); /* Adjust for navbar height */
+}
+
+mat-sidenav {
+    @include mat.sidenav-overrides((
+        container-background-color: var(--mat-sys-secondary-container),
+    ))
+}
+
+h2 {
+  margin: 0;
+}
+
+.sidenav-header {
+    padding-top: 24px;
+    text-align: center;
+}
+
+.avatar {
+  font-size: 100px;
+  width: 100px;
+  height: 100px;
+}
+
+//main content
+
+mat-sidenav-content {
+  padding: 16px;
+}

@@ -1,0 +1,47 @@
+<mat-sidenav-container>
+  <!--SideNav-->
+  <mat-sidenav
+    #sidenav
+    [mode]="sideNavMode()"
+    opened
+    [style.width]="'250px'"
+  >
+    <div class="sidenav-header">
+      <mat-icon class="avatar">account_circle</mat-icon>
+      <h3>Mizz Molly</h3>
+    </div>
+    <mat-nav-list>
+      <mat-list-item-title mat-subheader>View all Invoices</mat-list-item-title>
+      <mat-list-item (click)="navigateToPage('account')">
+        <mat-icon matListItemIcon>list</mat-icon>
+          <h2 matListItemTitle>Invoices</h2>
+      </mat-list-item>
+    </mat-nav-list>
+    <mat-nav-list>
+      <mat-list-item-title mat-subheader>Invoices</mat-list-item-title>
+      <mat-list-item
+        *ngFor="let invoice of invoices; let index = index"
+        (click)="navigateToPage('account/' + (index + 1))"
+      >
+        <mat-icon matListItemIcon>article</mat-icon>
+        <h2 matListItemTitle>
+          {{ invoice.name }}
+        </h2>
+        <h2 matListItemLine>
+          {{ invoice.updated | date }}
+        </h2>
+      </mat-list-item>
+    </mat-nav-list>
+    <mat-nav-list>
+      <mat-list-item-title mat-subheader>Create Invoice</mat-list-item-title>
+      <mat-list-item (click)="navigateToPage('account/create-invoice')">
+        + New Invoice
+      </mat-list-item>
+    </mat-nav-list>
+  </mat-sidenav>
+  <!-- Main Content -->
+  <mat-sidenav-content>
+    <button mat-button (click)="sidenav.toggle()" *ngIf="isMobile()">Menu</button>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

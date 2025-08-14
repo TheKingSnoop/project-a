@@ -16,7 +16,7 @@ export class NavbarComponent {
   constructor(private router: Router) {}
 
   signalService = inject(SignalService);
-
+  
   navigateToPage(page: string) {
     this.router.navigate([`/${page}`]);
   }
@@ -25,7 +25,5 @@ export class NavbarComponent {
     return this.router.url === '/account';
   }
 
-  toggleSideMenu() {
-    this.signalService.collapsedSideMenu.set(!this.signalService.collapsedSideMenu())
-  }
+  
 }
