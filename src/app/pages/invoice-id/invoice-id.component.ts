@@ -1,5 +1,5 @@
 import { Component, computed, inject, OnInit, signal } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatIconModule} from '@angular/material/icon';
 import {MatListModule} from '@angular/material/list';
@@ -26,12 +26,12 @@ export interface InvoiceDataTypes {
 })
 export class InvoiceIdComponent implements OnInit {
    breakpointObserver = inject(BreakpointObserver);
-   private route = inject(ActivatedRoute)
+  //  private route = inject(ActivatedRoute)
 
    //Signal to hold the invoice :id
    invoiceId = signal<string | null>(null);
 
-  constructor(private router: Router) {
+  constructor(private route: ActivatedRoute) {
     this.breakpointObserver.observe([
       Breakpoints.Handset
     ]).subscribe((result: BreakpointState) => {
@@ -45,17 +45,9 @@ export class InvoiceIdComponent implements OnInit {
 
   ngOnInit(): void {
     // Get the ID from the route parameters
-    const id = this.route.snapshot.paramMap.get('id');
-    if (id) {
+    this.route.params.subscribe(params => {
+      const id = params['id'];
       this.invoiceId.set(id);
-    }
-
-    // Alternative: Subscribe to parameter changes (if the ID might change)
-    this.route.paramMap.subscribe(params => {
-      const id = params.get('id');
-      if (id) {
-        this.invoiceId.set(id);
-      }
     });
   }
 
@@ -80,7 +72,7 @@ export class InvoiceIdComponent implements OnInit {
     }
   ];
 
-    //breakpoint observer
+  //breakpoint observer
   isMobile = signal<boolean>(false);
   
   //table
@@ -88,8 +80,6 @@ export class InvoiceIdComponent implements OnInit {
   dataSource = this.invoiceData;
 
   //sidebar
-  selectedInvoice = signal<number>(0);
-
   sideNavMode = computed(() => this.isMobile() ? 'over' : 'side');
   columnSpan = computed(() => this.isMobile() ? 2 : 1);
 }
