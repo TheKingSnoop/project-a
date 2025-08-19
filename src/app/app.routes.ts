@@ -12,5 +12,6 @@ export const routes: Routes = [
   { path: 'sign-up', component: SignUpComponent },
   { path: 'login', component: LoginComponent },
   { path: 'account/create-invoice', component: CreateInvoiceComponent },
-  { path: 'account/:id', component: InvoiceIdComponent }
+  { path: 'account/:id', component: InvoiceIdComponent },
+  { path: '**', redirectTo: '' }, // Fallback route for unknown paths
 ];
