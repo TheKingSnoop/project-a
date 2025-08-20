@@ -26,7 +26,6 @@ export interface InvoiceDataTypes {
 })
 export class InvoiceIdComponent implements OnInit {
    breakpointObserver = inject(BreakpointObserver);
-  //  private route = inject(ActivatedRoute)
 
    //Signal to hold the invoice :id
    invoiceId = signal<string | null>(null);

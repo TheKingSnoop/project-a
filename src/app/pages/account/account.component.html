@@ -1,11 +1,8 @@
 <h1>My Invoices</h1>
 <div class="card-container">
-  <mat-card
-    appearance="outlined"
-    class="invoice-card"
-    *ngFor="let invoice of invoices; let index = index"
-    (click)="navigateToPage('account/' + (index + 1))"
-  >
+  <div class="card-wrapper" *ngFor="let invoice of invoices; let index = index">
+  <mat-card appearance="outlined" class="invoice-card" 
+    (click)="navigateToPage('account/' + (index + 1))">
     <mat-card-header>
       <mat-card-title>{{ invoice.name }}</mat-card-title>
     </mat-card-header>
@@ -14,4 +11,8 @@
       <p>{{ invoice.updated | date }}</p>
     </mat-card-content>
   </mat-card>
+  <div class="card-buttons">
+      <button mat-icon-button class="button-container" id="delete"><mat-icon>delete</mat-icon></button>
+      <button mat-icon-button class="button-container"><mat-icon>edit_document</mat-icon></button>
+  </div>
 </div>

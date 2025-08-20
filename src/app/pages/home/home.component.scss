@@ -1,7 +1,82 @@
 .hero-section {
-    height: calc(100vh - 70px); /* Adjust height to account for navbar */
-}.landing-buttons {
+    height: calc(100vh - 60px); /* Adjust height to account for navbar */
+    background-image: url("../../../../public/images/landingPage.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    text-align: center;
+}
+
+.heading {
+    font-size: 4rem;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.heading2 {
+    font-size: 2rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    width: 600px;
+    color: var(--mat-sys-secondary);
+}
+
+#yourInvoice {
+    color: var(--mat-sys-on-primary);
+    margin: 0px;
+}
+
+#generator {
+    color: var(--mat-sys-primary);
+    margin: 0px;
+}
+
+.subHeading {
+    color: var(--mat-sys-on-primary);
+    font-size: 1.5rem;
+}
+
+.subText {
+    width: 500px;
+    color: var(--mat-sys-primary);
+    font-size: 1.2rem;
+}
+
+.landing-buttons {
+    margin: 40px;
     display: flex;
     gap: 10px;
 }
 
+.landing-buttons > button {
+    width: 150px;
+    border-radius: 5px;
+}
+
+.component {
+    padding: 20px;
+    text-align: center;
+    background-color: var(--mat-sys-secondary-container);
+}
+
+//mobile devices
+@media (max-width: 600px) {
+    .heading {
+        font-size: 1.5rem;
+    }
+
+    .subHeading {
+        font-size: 1rem;
+    }
+
+    .heading2 {
+        font-size: 1.2rem;
+        width: 100%;
+    }
+    
+    .subText {
+        width: 100%;
+        font-size: 1rem;
+    }
+
+}
