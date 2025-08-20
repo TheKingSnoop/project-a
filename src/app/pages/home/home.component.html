@@ -1,9 +1,23 @@
 <div class="container hero-section">
-  <h1>Invoice Generator</h1>
-  <h2>Generate and manage your invoices effortlessly</h2>
+  <div class="heading">
+    <h1 id="yourInvoice">Your Invoice</h1>
+    <h1 id="generator">Generator</h1>
+  </div>
   <div class="landing-buttons">
     <button mat-flat-button (click)="navigateToPage('account')">My Account</button>
     <button mat-flat-button class="tertiary" (click)="navigateToPage('sign-up')">Sign Up</button>
   </div>
-  
+  <div class="subHeading">
+    <h3>Generate and manage your invoices effortlessly</h3>
+  </div>
+</div>
+<div class="container component">
+  <div class="heading2">
+    <h1>Create and manage invoices. All in one place.</h1>
+  </div>
+  <div class="subText">
+    <p>We help you create and manage invoices effortlessly. Create an account to get started today!</p>
+  </div>
+  <div class="landing-buttons">
+    <button mat-flat-button class="tertiary" (click)="navigateToPage('sign-up')">Get Started</button>
 </div>
