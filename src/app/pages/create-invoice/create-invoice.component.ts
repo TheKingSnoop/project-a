@@ -14,26 +14,23 @@ import { InvoicesService } from '../../services/invoices.service';
 export class CreateInvoiceComponent implements OnInit {
   model!: Model;
 
-  constructor(
-    private invoicesService: InvoicesService
-  ) {
-    // this.model = new Model(json);
-    // this.model.css = themeJson;
-  }
+  constructor(private invoicesService: InvoicesService) {}
 
+  //this function sends the form data to the backend to create a new invoice
   createInvoice(sender: any, options: any) {
-    const results = sender.data;
-    console.log('Creating invoice with results:', results);
+    const invoiceFormResults = sender.data;
+    console.log('Creating invoice with results:', invoiceFormResults);
     options.showSaveInProgress();
-    this.invoicesService.createInvoice(results).subscribe((response)=>{
+    this.invoicesService.createInvoice(invoiceFormResults).subscribe((response) => {
       console.log('Invoice created successfully:', response);
       options.showSaveSuccess();
-    })
+    });
   }
 
+  //this function initializes the survey form
   loadCreateInvoiceForm() {
     const invoiceForm = new Model(json);
-    //invoiceForm.css = themeJson;
+    //invoiceForm.css = themeJson; //unsure what this does so it is commented out for now
     this.model = invoiceForm;
     invoiceForm.onComplete.add(this.createInvoice.bind(this));
   }
