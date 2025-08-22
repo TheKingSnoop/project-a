@@ -11,6 +11,10 @@ mat-sidenav {
     ))
 }
 
+mat-sidenav {
+  border-radius: 0px;
+}
+
 h2 {
   margin: 0;
 }
@@ -30,4 +34,13 @@ h2 {
 
 mat-sidenav-content {
   padding: 16px;
+  border-radius: 0px;
+}
+
+.menu-button {
+  position: fixed;
+  top: 80px; /* Adjust based on your navbar height */
+  left: 16px;
+  z-index: 1000; /* Ensure it appears above other content */
+  opacity: 0.9;
 }
