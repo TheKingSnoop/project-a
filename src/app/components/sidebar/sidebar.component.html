@@ -3,7 +3,7 @@
   <mat-sidenav
     #sidenav
     [mode]="sideNavMode()"
-    opened
+    [opened]="isSidebarOpened()"
     [style.width]="'250px'"
   >
     <div class="sidenav-header">
@@ -12,7 +12,7 @@
     </div>
     <mat-nav-list>
       <mat-list-item-title mat-subheader>View all Invoices</mat-list-item-title>
-      <mat-list-item (click)="navigateToPage('account')">
+      <mat-list-item (click)="navigateToPage('account'); toggleOnMobile(sidenav);">
         <mat-icon matListItemIcon>list</mat-icon>
           <h2 matListItemTitle>Invoices</h2>
       </mat-list-item>
@@ -21,7 +21,7 @@
       <mat-list-item-title mat-subheader>Invoices</mat-list-item-title>
       <mat-list-item
         *ngFor="let invoice of invoices; let index = index"
-        (click)="navigateToPage('account/' + (index + 1))"
+        (click)="navigateToPage('account/' + (index + 1)); toggleOnMobile(sidenav);"
       >
         <mat-icon matListItemIcon>article</mat-icon>
         <h2 matListItemTitle>
@@ -34,14 +34,15 @@
     </mat-nav-list>
     <mat-nav-list>
       <mat-list-item-title mat-subheader>Create Invoice</mat-list-item-title>
-      <mat-list-item (click)="navigateToPage('account/create-invoice')">
-        + New Invoice
+      <mat-list-item (click)="navigateToPage('account/create-invoice'); toggleOnMobile(sidenav);">
+        <mat-icon matListItemIcon>add</mat-icon>
+        <h2 matListItemTitle>New Invoice</h2>
       </mat-list-item>
     </mat-nav-list>
   </mat-sidenav>
   <!-- Main Content -->
   <mat-sidenav-content>
-    <button mat-button (click)="sidenav.toggle()" *ngIf="isMobile()">Menu</button>
+    <button mat-fab (click)="sidenav.toggle()" class="menu-button" *ngIf="isMobile()"><mat-icon>menu</mat-icon></button>
     <router-outlet></router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>

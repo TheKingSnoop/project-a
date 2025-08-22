@@ -24,6 +24,16 @@ export interface InvDataTypes {
 })
 export class SidebarComponent {
   breakpointObserver = inject(BreakpointObserver);
+  isSidebarOpened = signal<boolean>(true);
+
+  //breakpoint observer
+  isMobile = signal<boolean>(false);
+
+  //sidebar
+  sideNavMode = computed(() => this.isMobile() ? 'over' : 'side');
+  navigateToPage(page: string) {
+    this.router.navigate([`/${page}`]);
+  }
 
   constructor(private router: Router) {
     this.breakpointObserver.observe([
@@ -31,6 +41,7 @@ export class SidebarComponent {
     ]).subscribe((result: BreakpointState) => {
       if(result.matches) {
         this.isMobile.set(true);
+        this.isSidebarOpened.set(false);
       } else {
         this.isMobile.set(false);
       }
@@ -64,12 +75,10 @@ export class SidebarComponent {
     },
   ];
 
-  //breakpoint observer
-  isMobile = signal<boolean>(false);
 
-  //sidebar
-  sideNavMode = computed(() => this.isMobile() ? 'over' : 'side');
-  navigateToPage(page: string) {
-    this.router.navigate([`/${page}`]);
+  toggleOnMobile(sidenav: any) {
+    if(this.isMobile()) {
+      sidenav.toggle();
+    }
   }
 }
