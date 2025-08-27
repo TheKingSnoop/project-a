@@ -10,15 +10,20 @@ export const json = {
   "pages": [
     {
       "name": "page1",
-      "title": "New Invoice",
-      "description": "Enter invoice details:",
+      "description": "Enter invoice title:",
       "elements": [
         {
           "type": "text",
           "name": "titleOfInvoice",
           "title": "Title of Invoice:",
           "isRequired": true
-        },
+        }
+      ]
+    },
+    {
+      "name": "page2",
+      "description": "Enter your details:",
+      "elements": [
         {
           "type": "panel",
           "name": "yourCompany",
@@ -79,7 +84,13 @@ export const json = {
               "inputType": "tel"
             }
           ]
-        },
+        }
+      ]
+    },
+    {
+      "name": "page3",
+      "description": "Enter client details:",
+      "elements": [
         {
           "type": "panel",
           "name": "billTo",
@@ -123,7 +134,13 @@ export const json = {
               "autocomplete": "email"
             }
           ]
-        },
+        }
+      ]
+    },
+    {
+      "name": "page4",
+      "description": "Enter invoice details:",
+      "elements": [
         {
           "type": "panel",
           "name": "invoiceDetails",
@@ -153,7 +170,13 @@ export const json = {
               "inputType": "date"
             }
           ]
-        },
+        }
+      ]
+    },
+    {
+      "name": "page5",
+      "description": "Enter invoice calculation details:",
+      "elements": [
         {
           "type": "panel",
           "name": "invoiceCalculation",
@@ -222,7 +245,7 @@ export const json = {
             },
             {
               "type": "text",
-              "name": "vatPercentage",
+              "name": "question11",
               "title": "VAT (in %)",
               "defaultValue": 20,
               "inputType": "number",
@@ -232,24 +255,30 @@ export const json = {
             },
             {
               "type": "expression",
-              "name": "vatTotal",
+              "name": "question12",
               "startWithNewLine": false,
               "title": "VAT",
-              "expression": "{invoiceItems-total.amount} * {vatPercentage} / 100",
+              "expression": "{invoiceItems-total.amount} * {question11} / 100",
               "displayStyle": "currency",
               "currency": "GBP"
             },
             {
               "type": "expression",
-              "name": "finalTotal",
+              "name": "question13",
               "startWithNewLine": false,
               "title": "Final Total",
-              "expression": "{invoiceItems-total.amount} + {vatTotal}",
+              "expression": "{invoiceItems-total.amount} + {question12}",
               "displayStyle": "currency",
               "currency": "GBP"
             }
           ]
-        },
+        }
+      ]
+    },
+    {
+      "name": "page6",
+      "description": "Enter bank account details where invoice will be paid into:",
+      "elements": [
         {
           "type": "panel",
           "name": "bankDetails",
@@ -258,13 +287,13 @@ export const json = {
           "elements": [
             {
               "type": "text",
-              "name": "bankSortCode",
+              "name": "sortCode",
               "title": "Bank Sort Code:",
               "inputType": "number"
             },
             {
               "type": "text",
-              "name": "bankAccountNumber",
+              "name": "accountNumber",
               "startWithNewLine": false,
               "title": "Bank Account Number:",
               "inputType": "number"
@@ -280,6 +309,7 @@ export const json = {
       ]
     }
   ],
+  "showProgressBar": true,
   "textUpdateMode": "onTyping",
   "completeText": "Generate Invoice",
   "headerView": "advanced"

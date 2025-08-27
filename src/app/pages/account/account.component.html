@@ -1,18 +1,44 @@
 <h1 class="page-title">My Invoices</h1>
-<div class="card-container">
-  <div class="card-wrapper" *ngFor="let invoice of invoices; let index = index">
-  <mat-card appearance="outlined" class="invoice-card" 
-    (click)="navigateToPage('account/' + (index + 1))">
-    <mat-card-header>
-      <mat-card-title>{{ invoice.name }}</mat-card-title>
-    </mat-card-header>
-    <mat-icon class="card-icon" matListItemIcon>article</mat-icon>
-    <mat-card-content>
-      <p>{{ invoice.updated | date }}</p>
-    </mat-card-content>
-  </mat-card>
-  <div class="card-buttons">
-      <button mat-icon-button class="button-container" id="delete"><mat-icon>delete</mat-icon></button>
-      <button mat-icon-button class="button-container"><mat-icon>edit_document</mat-icon></button>
-  </div>
-</div>
+<mat-form-field>
+  <mat-label>Filter</mat-label>
+  <input matInput (keyup)="applyFilter($event)" placeholder="Car wash" #input>
+</mat-form-field>
+
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+  <ng-container matColumnDef="icon">
+    <th mat-header-cell *matHeaderCellDef> </th>
+    <td mat-cell *matCellDef="let element"> <mat-icon matListItemIcon>article</mat-icon></td>
+  </ng-container>
+
+  <!-- Name Column -->
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef> Name </th>
+    <td mat-cell *matCellDef="let element" class="clickable-row" (click)="navigateToPage('account/' + element.id)"> {{element.name}} </td>
+  </ng-container>
+  
+  <!-- Updated Column -->
+  <ng-container matColumnDef="updated">
+    <th mat-header-cell *matHeaderCellDef> Updated </th>
+    <td mat-cell *matCellDef="let element"> {{element.updated | date}} </td>
+  </ng-container>
+  
+  <!-- Options Column -->
+  <ng-container matColumnDef="options">
+    <th mat-header-cell *matHeaderCellDef> Options </th>
+    <td mat-cell *matCellDef="let element">
+      <div style="display: flex;">
+      <button mat-icon-button (click)="alert('delete')" id="delete"><mat-icon>delete</mat-icon></button>
+      <button mat-icon-button><mat-icon>edit_document</mat-icon></button>
+    </div>
+    </td>
+  </ng-container>
+
+  <!-- Header and Row Declarations -->
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+  <!-- Row shown when there is no matching data. -->
+  <tr class="mat-row" *matNoDataRow>
+    <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+  </tr>
+</table>
