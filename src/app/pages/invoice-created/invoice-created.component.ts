@@ -1,16 +1,15 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
 import {MatButtonModule} from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
+import {MatIconModule} from '@angular/material/icon';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-home',
+  selector: 'app-invoice-created',
   imports: [MatButtonModule, MatIconModule],
-  templateUrl: './home.component.html',
-  styleUrl: './home.component.scss'
+  templateUrl: './invoice-created.component.html',
+  styleUrl: './invoice-created.component.scss'
 })
-export class HomeComponent {
-
+export class InvoiceCreatedComponent {
   constructor(private router: Router) {}
 
  navigateToPage(page: string) {

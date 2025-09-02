@@ -23,7 +23,7 @@
         *ngFor="let invoice of invoices; let index = index"
         (click)="navigateToPage('account/' + (index + 1)); toggleOnMobile(sidenav);"
       >
-        <mat-icon matListItemIcon>article</mat-icon>
+        <mat-icon matListItemIcon>description</mat-icon>
         <h2 matListItemTitle>
           {{ invoice.name }}
         </h2>

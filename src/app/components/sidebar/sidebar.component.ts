@@ -12,8 +12,10 @@ import {MatTableModule} from '@angular/material/table';
 import {BreakpointObserver, Breakpoints, BreakpointState} from '@angular/cdk/layout';
 
 export interface InvDataTypes {
+  id: number;
   name: string;
   updated: Date;
+  folder: string;
 }
 
 @Component({
@@ -48,33 +50,44 @@ export class SidebarComponent {
     });
   }
 
- invoices: InvDataTypes[] = [
-    {
-      name: 'Invoice 1',
-      updated: new Date('1/1/16'),
-    },
-    {
-      name: 'Invoice 2',
-      updated: new Date('1/17/16'),
-    },
-    {
-      name: 'Invoice 3',
-      updated: new Date('1/28/16'),
-    },
-    {
-      name: 'Invoice 4',
-      updated: new Date('2/1/16'),
-    },
-    {
-      name: 'Invoice 5',
-      updated: new Date('2/17/16'),
-    },
-    {
-      name: 'Invoice 6',
-      updated: new Date('5/28/16'),
-    },
-  ];
-
+  invoices: InvDataTypes[] = [
+      {
+        id: 1,
+        name: 'Car wash',
+        updated: new Date('1/1/16'),
+        folder: "work"
+      },
+      {
+        id: 2,
+        name: 'Fixing washing machine',
+        updated: new Date('1/17/22'),
+        folder: "home"
+      },
+      {
+        id: 3,
+        name: 'Cleaning',
+        updated: new Date('1/28/23'),
+        folder: "work"
+      },
+      {
+        id: 4,
+        name: 'Pest Control',
+        updated: new Date('2/1/18'),
+        folder: "work"
+      },
+      {
+        id: 5,
+        name: 'Internet',
+        updated: new Date('2/17/16'),
+        folder: "home"
+      },
+      {
+        id: 6,
+        name: 'Tv Subscription',
+        updated: new Date('5/28/24'),
+        folder: "other"
+      },
+    ];
 
   toggleOnMobile(sidenav: any) {
     if(this.isMobile()) {
