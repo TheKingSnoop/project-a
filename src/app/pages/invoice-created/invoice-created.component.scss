@@ -1,0 +1,29 @@
+.invoice-created-container {
+  height: calc(100vh - 70px);
+}
+
+.tick-icon {
+  color: var(--mat-sys-primary);
+  height: 150px;
+  width: 150px;
+  font-size: 150px;
+}
+
+.back-to-inv-button {
+  background-color: var(--mat-sys-tertiary);
+}
+
+.test {
+    width: 200px;
+    border-radius: 5px;
+}
+
+.buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.buttons > button {
+    width: 150px;
+    border-radius: 5px;
+}

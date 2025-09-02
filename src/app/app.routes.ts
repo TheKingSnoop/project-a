@@ -5,6 +5,7 @@ import { SignUpComponent } from './pages/sign-up/sign-up.component';
 import { LoginComponent } from './pages/login/login.component';
 import { CreateInvoiceComponent } from './pages/create-invoice/create-invoice.component';
 import { InvoiceIdComponent } from './pages/invoice-id/invoice-id.component';
+import { InvoiceCreatedComponent } from './pages/invoice-created/invoice-created.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -13,5 +14,6 @@ export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'account/create-invoice', component: CreateInvoiceComponent },
   { path: 'account/:id', component: InvoiceIdComponent },
+  { path: 'account/invoice-created/success', component: InvoiceCreatedComponent },
   { path: '**', redirectTo: '' }, // Fallback route for unknown paths
 ];

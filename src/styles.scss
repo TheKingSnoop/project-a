@@ -10,8 +10,14 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    flex-wrap: wrap;
 }
 
 .page-title {
     text-align: center;
+    color: var(--mat-sys-primary);
+}
+
+.sub-heading {
+    color: var(--mat-sys-on-surface-variant);
 }

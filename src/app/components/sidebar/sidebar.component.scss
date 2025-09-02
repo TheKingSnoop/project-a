@@ -1,18 +1,8 @@
 @use '@angular/material' as mat;
 
-//sidenav
-mat-sidenav-container {
-    height: calc(100vh - 64px); /* Adjust for navbar height */
-}
-
-mat-sidenav {
-    @include mat.sidenav-overrides((
-        container-background-color: var(--mat-sys-secondary-container),
-    ))
-}
-
 mat-sidenav {
   border-radius: 0px;
+  background: linear-gradient(90deg, var(--mat-sys-primary-container) 0%, var(--mat-sys-tertiary-container) 100%);
 }
 
 h2 {
@@ -35,6 +25,8 @@ h2 {
 mat-sidenav-content {
   padding: 16px;
   border-radius: 0px;
+  background: var(--mat-sys-surface-bright);
+  min-height: calc(100vh - 64px); /* Adjust for navbar height */
 }
 
 .menu-button {

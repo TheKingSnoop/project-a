@@ -10,13 +10,11 @@
     z-index: 5;
     
     @include mat.elevation(3);
-
-    @include mat.toolbar-overrides((
-    container-background-color: var(--mat-sys-primary),
-    container-text-color: var(--mat-sys-on-primary)
-))
 }
-
+mat-toolbar {
+    background-color: var(--mat-sys-primary-container);
+    color: var(--mat-sys-on-primary-container);
+}
 .navbar-toggle {
     color: var(--mat-sys-on-primary);
 }

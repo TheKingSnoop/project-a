@@ -4,6 +4,7 @@ import { SurveyModule } from 'survey-angular-ui';
 import { themeJson } from '../../styles/themes/surveyjsTheme';
 import { json } from '../../services/surveyjs/createSurvey/json';
 import { InvoicesService } from '../../services/invoices.service';
+import { Router} from '@angular/router';
 
 @Component({
   selector: 'app-create-invoice',
@@ -14,7 +15,7 @@ import { InvoicesService } from '../../services/invoices.service';
 export class CreateInvoiceComponent implements OnInit {
   model!: Model;
 
-  constructor(private invoicesService: InvoicesService) {}
+  constructor(private invoicesService: InvoicesService, private  router: Router) {}
 
   //this function sends the form data to the backend to create a new invoice
   createInvoice(sender: any, options: any) {
@@ -23,6 +24,9 @@ export class CreateInvoiceComponent implements OnInit {
     options.showSaveInProgress();
     this.invoicesService.createInvoice(invoiceFormResults).subscribe((response) => {
       console.log('Invoice created successfully:', response);
+      setTimeout(() => {
+        this.router.navigate(['/account/invoice-created/success']);
+      }, 2000);
       options.showSaveSuccess();
     });
   }
