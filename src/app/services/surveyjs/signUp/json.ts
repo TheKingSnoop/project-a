@@ -1,18 +1,18 @@
 export const json = {
   "title": "Sign Up",
-  "description": "Create an account",
-  "completedHtml": "<h3>Thank you {firstName} for signing up!</h3>\n<br>\n<p>Your account has been created successfully. You will receive a confirmation email shortly.</p>",
-  "completedBeforeHtml": "You have already signed up.",
-  "loadingHtml": "Loading Sign Up form...",
+  "description": "Please fill in details to create an account.",
+  "completedHtml": "<h3>Thank you {name} for signing up!</h3>\\n<br>\\n<p>Your account has been created successfully. You will receive a confirmation email shortly.</p>",
+  "completedBeforeHtml": "You have already created an account.",
+  "loadingHtml": "Loading Sign Up...",
   "pages": [
     {
       "name": "page1",
-      "description": "Account Details:",
+      "description": "Account details",
       "elements": [
         {
           "type": "panel",
-          "name": "accountData",
-          "title": "Account Details:",
+          "name": "panel1",
+          "maxWidth": "1000px",
           "elements": [
             {
               "type": "radiogroup",
@@ -37,27 +37,30 @@ export const json = {
                   "text": "Dr"
                 }
               ],
-              "colCount": 5
+              "colCount": 4
             },
             {
               "type": "text",
-              "name": "firstName",
-              "title": "First Name:",
-              "isRequired": true
+              "name": "name",
+              "title": "Name:",
+              "isRequired": true,
+              "autocomplete": "given-name"
             },
             {
               "type": "text",
               "name": "surname",
               "startWithNewLine": false,
               "title": "Surname:",
-              "isRequired": true
+              "isRequired": true,
+              "autocomplete": "family-name"
             },
             {
               "type": "text",
               "name": "email",
               "title": "Email:",
               "isRequired": true,
-              "inputType": "email"
+              "inputType": "email",
+              "autocomplete": "email"
             },
             {
               "type": "text",
@@ -70,13 +73,21 @@ export const json = {
               "type": "text",
               "name": "confirmPassword",
               "startWithNewLine": false,
-              "title": "Confirm Password",
-              "isRequired": true
+              "title": "Confirm Password:",
+              "isRequired": true,
+              "validators": [
+                {
+                  "type": "expression"
+                }
+              ],
+              "inputType": "password"
             }
           ]
         }
       ]
     }
   ],
+  "completeText": "Sign Up",
+  "widthMode": "static",
   "headerView": "advanced"
 }
