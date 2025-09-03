@@ -158,8 +158,7 @@ export const json = {
               "type": "text",
               "name": "referenceNumber",
               "title": "Reference Number:",
-              "isRequired": true,
-              "inputType": "number"
+              "isRequired": true
             },
             {
               "type": "text",
@@ -271,7 +270,7 @@ export const json = {
             },
             {
               "type": "expression",
-              "name": "question13",
+              "name": "finalTotal",
               "startWithNewLine": false,
               "title": "Final Total",
               "expression": "{invoiceItems-total.amount} + {vat}",
@@ -295,15 +294,18 @@ export const json = {
             {
               "type": "text",
               "name": "sortCode",
-              "title": "Sort Code:",
-              "inputType": "number"
+              "title": "Sort Code:"
             },
             {
               "type": "text",
               "name": "accountNumber",
               "startWithNewLine": false,
               "title": "Account Number:",
-              "inputType": "number"
+              "validators": [
+                {
+                  "type": "expression"
+                }
+              ]
             },
             {
               "type": "text",
@@ -314,215 +316,11 @@ export const json = {
           ]
         }
       ]
-    },
-    {
-      "name": "page7",
-      "description": "Summary of Invoice:",
-      "elements": [
-        {
-          "type": "panel",
-          "name": "summaryTitlePanel",
-          "title": "Invoice Title:",
-          "elements": [
-            {
-              "type": "expression",
-              "name": "summaryTitle",
-              "title": "Title:",
-              "expression": "{titleOfInvoice}"
-            }
-          ]
-        },
-        {
-          "type": "panel",
-          "name": "summaryYourCompanyPanel",
-          "title": "Your Details:",
-          "elements": [
-            {
-              "type": "expression",
-              "name": "summaryNameOfYourCompany",
-              "title": "Name Of Your Company:",
-              "expression": "{nameOfYourCompany}"
-            },
-            {
-              "type": "expression",
-              "name": "question2",
-              "startWithNewLine": false,
-              "title": "Your Name:",
-              "expression": "{yourName}"
-            },
-            {
-              "type": "expression",
-              "name": "summaryYourSurname",
-              "startWithNewLine": false,
-              "title": "Your Surname:",
-              "expression": "{yourSurname}"
-            },
-            {
-              "type": "expression",
-              "name": "summaryYourAddress",
-              "title": "Your Address:",
-              "expression": "{yourAddress}"
-            },
-            {
-              "type": "expression",
-              "name": "summaryYourPostCode",
-              "startWithNewLine": false,
-              "title": "Your Post Code:",
-              "expression": "{yourPostCode}"
-            },
-            {
-              "type": "expression",
-              "name": "summaryYourCity",
-              "startWithNewLine": false,
-              "title": "Your City:",
-              "expression": "{yourCity}"
-            },
-            {
-              "type": "expression",
-              "name": "summaryYourEmail",
-              "title": "Your Email:",
-              "expression": "{yourEmail}"
-            },
-            {
-              "type": "expression",
-              "name": "yourPhoneNumber",
-              "startWithNewLine": false,
-              "title": "Phone Number:",
-              "expression": "{phoneNumber}"
-            }
-          ]
-        },
-        {
-          "type": "panel",
-          "name": "summaryBillToPanel",
-          "title": "Bill To:",
-          "elements": [
-            {
-              "type": "expression",
-              "name": "summaryCompanyName",
-              "title": "Company Name:",
-              "expression": "{companyName}"
-            },
-            {
-              "type": "expression",
-              "name": "summaryClientName",
-              "startWithNewLine": false,
-              "title": "Client Name:",
-              "expression": "{clientName}"
-            },
-            {
-              "type": "expression",
-              "name": "summaryClientAddress",
-              "title": "Client Address:",
-              "expression": "{clientAddress}"
-            },
-            {
-              "type": "expression",
-              "name": "summaryClientCity",
-              "startWithNewLine": false,
-              "title": "Client City:",
-              "expression": "{clientCity}"
-            },
-            {
-              "type": "expression",
-              "name": "summaryClientPostCode",
-              "startWithNewLine": false,
-              "title": "Client Post Code:",
-              "expression": "{clientPostCode}"
-            },
-            {
-              "type": "expression",
-              "name": "summaryClientEmail",
-              "title": "Client Email:",
-              "expression": "{clientEmail}"
-            }
-          ]
-        },
-        {
-          "type": "panel",
-          "name": "summaryInvoiceDetailsPanel",
-          "title": "Invoice Details:",
-          "elements": [
-            {
-              "type": "expression",
-              "name": "summaryReferenceNumber",
-              "title": "Reference Number:",
-              "expression": "{referenceNumber}"
-            },
-            {
-              "type": "expression",
-              "name": "summaryIssueDate",
-              "startWithNewLine": false,
-              "title": "Issue Date:",
-              "expression": "{issueDate}",
-              "displayStyle": "date"
-            },
-            {
-              "type": "expression",
-              "name": "summaryDueDate",
-              "startWithNewLine": false,
-              "title": "Due Date:",
-              "expression": "{DueDate}",
-              "displayStyle": "date"
-            }
-          ]
-        },
-        {
-          "type": "panel",
-          "name": "summaryInvoiceDetails",
-          "title": "Invoice Calculation",
-          "elements": [
-            {
-              "type": "expression",
-              "name": "summarytotal",
-              "title": "Total:",
-              "expression": "{invoiceItems-total.amount}",
-              "displayStyle": "currency",
-              "currency": "GBP"
-            },
-            {
-              "type": "expression",
-              "name": "question6",
-              "startWithNewLine": false,
-              "title": "Final Total",
-              "expression": "{invoiceItems-total.amount} + {vat}",
-              "displayStyle": "currency",
-              "currency": "GBP"
-            }
-          ]
-        },
-        {
-          "type": "panel",
-          "name": "summaryBankDetailsPanel",
-          "title": "Bank Details:",
-          "elements": [
-            {
-              "type": "expression",
-              "name": "summarySortCode",
-              "title": "Sort Code:",
-              "expression": "{sortCode}"
-            },
-            {
-              "type": "expression",
-              "name": "summaryAccountNumber",
-              "startWithNewLine": false,
-              "title": "Account Number:",
-              "expression": "{accountNumber}"
-            },
-            {
-              "type": "expression",
-              "name": "summaryBankName",
-              "startWithNewLine": false,
-              "title": "Bank Name:",
-              "expression": "{bankName}"
-            }
-          ]
-        }
-      ]
     }
   ],
   "showProgressBar": true,
   "textUpdateMode": "onTyping",
   "completeText": "Generate Invoice",
+  "showPreviewBeforeComplete": true,
   "headerView": "advanced"
 }
