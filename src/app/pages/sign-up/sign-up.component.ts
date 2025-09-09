@@ -2,18 +2,20 @@ import { Component, OnInit } from '@angular/core';
 import { Model } from 'survey-core';
 import { SurveyModule } from 'survey-angular-ui';
 import { json } from "../../services/surveyjs/signUp/json";
+import { FormsModule } from '@angular/forms';
+import { SignUpService } from '../../services/signUp.service';
 
 
 @Component({
   selector: 'app-sign-up',
-  imports: [SurveyModule],
+  imports: [SurveyModule, FormsModule],
   templateUrl: './sign-up.component.html',
   styleUrl: './sign-up.component.scss',
 })
 export class SignUpComponent implements OnInit {
   model: Model;
 
-  constructor() {
+  constructor(private signUpService: SignUpService) {
     this.model = new Model(json);
     this.setupValidation();
   }
@@ -51,6 +53,14 @@ export class SignUpComponent implements OnInit {
     this.model.onComplete.add((survey) => {
       console.log('Survey results:', survey.data);
       // Handle the survey data here
+      this.signUpService.createUser({
+      name: survey.data.name,
+      surname: survey.data.surname,
+      email: survey.data.email,
+      password: survey.data.password
+    }).subscribe(response => {
+      console.log('User created successfully:', response);
+    });
     });
   }
 }

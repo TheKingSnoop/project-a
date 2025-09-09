@@ -116,6 +116,12 @@ export const json = {
             },
             {
               "type": "text",
+              "name": "clientSurname",
+              "startWithNewLine": false,
+              "title": "Client Surname:"
+            },
+            {
+              "type": "text",
               "name": "clientAddress",
               "title": "Address:",
               "autocomplete": "street-address"
@@ -129,7 +135,6 @@ export const json = {
             {
               "type": "text",
               "name": "clientPostCode",
-              "startWithNewLine": false,
               "title": "Post Code:",
               "autocomplete": "postal-code"
             },
@@ -293,7 +298,13 @@ export const json = {
           "elements": [
             {
               "type": "text",
+              "name": "nameOnAccount",
+              "title": "Name on Account:"
+            },
+            {
+              "type": "text",
               "name": "sortCode",
+              "startWithNewLine": false,
               "title": "Sort Code:"
             },
             {
