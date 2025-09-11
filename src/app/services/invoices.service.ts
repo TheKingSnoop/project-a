@@ -11,7 +11,7 @@ export class InvoicesService {
   constructor(private http: HttpClient) {}
 
   createInvoice(invoiceFormResults: any) {
-    const createInvoiceUrl = `${this.baseUrl}/invoices/add-invoice`;
+    const createInvoiceUrl = `${this.baseUrl}/invoices/generate`;
     return this.http.post(createInvoiceUrl, invoiceFormResults);
   }
 }
