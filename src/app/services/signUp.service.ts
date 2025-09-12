@@ -5,13 +5,13 @@ import { environment } from '../../environments/environment.development';
 @Injectable({
   providedIn: 'root',
 })
-export class InvoicesService {
+export class SignUpService {
   private readonly baseUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) {}
 
-  createInvoice(invoiceFormResults: any) {
-    const createInvoiceUrl = `${this.baseUrl}/invoices/generate`;
-    return this.http.post(createInvoiceUrl, invoiceFormResults);
+  createUser(userData: any) {
+    const addUserUrl = `${this.baseUrl}/users/add-user`;
+    return this.http.post(addUserUrl, userData);
   }
 }

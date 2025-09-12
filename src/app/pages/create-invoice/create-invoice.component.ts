@@ -22,7 +22,37 @@ export class CreateInvoiceComponent implements OnInit {
     const invoiceFormResults = sender.data;
     console.log('Creating invoice with results:', invoiceFormResults);
     options.showSaveInProgress();
-    this.invoicesService.createInvoice(invoiceFormResults).subscribe((response) => {
+    this.invoicesService.createInvoice({
+      vatPercentage: invoiceFormResults.vatPercentage,
+      invoiceItemsTotal: invoiceFormResults['invoiceItems-total'].amount,
+      vat: invoiceFormResults.vat,
+      finalTotal: invoiceFormResults.finalTotal,
+      invoiceItems: invoiceFormResults.invoiceItems,
+      titleOfInvoice: invoiceFormResults.titleOfInvoice,
+      nameOfYourCompany: invoiceFormResults.nameOfYourCompany,
+      yourName: invoiceFormResults.yourName,
+      yourSurname: invoiceFormResults.yourSurname,
+      yourAddress: invoiceFormResults.yourAddress,
+      yourCity: invoiceFormResults.yourCity,
+      yourPostCode: invoiceFormResults.yourPostCode,
+      yourEmail: invoiceFormResults.yourEmail,
+      phoneNumber: invoiceFormResults.phoneNumber,
+      companyName: invoiceFormResults.companyName,
+      clientName: invoiceFormResults.clientName,
+      clientSurname: invoiceFormResults.clientSurname,
+      clientAddress: invoiceFormResults.clientAddress,
+      clientCity: invoiceFormResults.clientCity,
+      clientPostCode: invoiceFormResults.clientPostCode,
+      clientEmail: invoiceFormResults.clientEmail,
+      referenceNumber: invoiceFormResults.referenceNumber,
+      issueDate: invoiceFormResults.issueDate,
+      dueDate: invoiceFormResults.dueDate,
+      nameOnAccount: invoiceFormResults.nameOnAccount,
+      sortCode: invoiceFormResults.sortCode,
+      accountNumber: invoiceFormResults.accountNumber,
+      bankName: invoiceFormResults.bankName,
+      id: "68c000d33d61719b5a89bb93"
+    }).subscribe((response) => {
       console.log('Invoice created successfully:', response);
       setTimeout(() => {
         this.router.navigate(['/account/invoice-created/success']);
