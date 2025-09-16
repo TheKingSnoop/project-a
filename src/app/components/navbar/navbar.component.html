@@ -4,8 +4,12 @@
         My Application
     </button>  
     </div>
-    <div class="navbar-right">
+    <div class="navbar-right" *ngIf="!isLoggedIn()">
         <button mat-button (click)="navigateToPage('sign-up')">Sign Up</button>
         <button mat-button (click)="navigateToPage('login')">Login</button>
+    </div>
+    <div class="navbar-right" *ngIf="isLoggedIn()">
+        <button mat-button (click)="navigateToPage('account')">My Account</button>
+        <button mat-button (click)="logout()">Logout</button>
     </div>
 </mat-toolbar>

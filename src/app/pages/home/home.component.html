@@ -5,7 +5,7 @@
   </div>
   <div class="landing-buttons">
     <button mat-flat-button (click)="navigateToPage('account')">My Account<mat-icon>account_circle</mat-icon></button>
-    <button mat-flat-button class="tertiary" (click)="navigateToPage('sign-up')">Sign Up<mat-icon>person_add</mat-icon></button>
+    <button mat-flat-button class="tertiary" *ngIf="!isLoggedIn()" (click)="navigateToPage('sign-up')">Sign Up<mat-icon>person_add</mat-icon></button>
   </div>
   <div class="subHeading">
     <h3>Generate and manage your invoices effortlessly</h3>
@@ -19,5 +19,5 @@
     <p>We help you create and manage invoices effortlessly. Create an account to get started today!</p>
   </div>
   <div class="landing-buttons">
-    <button mat-flat-button class="tertiary" (click)="navigateToPage('sign-up')">Get Started<mat-icon>person_add</mat-icon></button>
+    <button *ngIf="!isLoggedIn()" mat-flat-button class="tertiary" (click)="navigateToPage('sign-up')">Get Started<mat-icon>person_add</mat-icon></button>
 </div>

@@ -7,9 +7,11 @@ import { MatButtonModule } from '@angular/material/button';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import { CommonModule } from '@angular/common';
 import { SignalService } from '../../services/signal.service';
+import { LoginService } from '../../services/login.service';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatTableModule} from '@angular/material/table';
 import {BreakpointObserver, Breakpoints, BreakpointState} from '@angular/cdk/layout';
+import { jwtDecode } from "jwt-decode";
 
 export interface InvDataTypes {
   id: number;
@@ -37,7 +39,7 @@ export class SidebarComponent {
     this.router.navigate([`/${page}`]);
   }
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private loginService: LoginService) {
     this.breakpointObserver.observe([
       Breakpoints.Handset
     ]).subscribe((result: BreakpointState) => {
@@ -94,4 +96,14 @@ export class SidebarComponent {
       sidenav.toggle();
     }
   }
+
+  decodedJwtObject: any = {};
+
+  ngOnInit() {
+    const token = localStorage.getItem('jwt_token');
+    if (token) {
+      this.decodedJwtObject = jwtDecode(token);
+    }
+  }
+  
 }
