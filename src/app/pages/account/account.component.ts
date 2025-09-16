@@ -5,6 +5,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import {MatDividerModule} from '@angular/material/divider';
 import { Router } from '@angular/router';
+import { LoginService } from '../../services/login.service';
 //chartJs
 import { BaseChartDirective } from 'ng2-charts';
 import { ChartConfiguration, ChartData, ChartType, registerables, Chart } from 'chart.js';
@@ -132,4 +133,6 @@ export class AccountComponent {
   alert(message: string) {
     window.alert(message);
   }
+  
+  
 }
