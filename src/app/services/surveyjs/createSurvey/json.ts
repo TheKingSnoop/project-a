@@ -61,6 +61,7 @@ export const json = {
               "type": "text",
               "name": "yourAddress",
               "title": "Address:",
+              "isRequired": true,
               "autocomplete": "street-address",
               "placeholder": "10 Downing Street"
             },
@@ -68,13 +69,15 @@ export const json = {
               "type": "text",
               "name": "yourCity",
               "startWithNewLine": false,
-              "title": "City:"
+              "title": "City:",
+              "isRequired": true
             },
             {
               "type": "text",
               "name": "yourPostCode",
               "startWithNewLine": false,
               "title": "Post Code:",
+              "isRequired": true,
               "autocomplete": "postal-code"
             },
             {
@@ -112,30 +115,35 @@ export const json = {
             {
               "type": "text",
               "name": "clientName",
-              "title": "Client Name:"
+              "title": "Client Name:",
+              "isRequired": true
             },
             {
               "type": "text",
               "name": "clientSurname",
               "startWithNewLine": false,
-              "title": "Client Surname:"
+              "title": "Client Surname:",
+              "isRequired": true
             },
             {
               "type": "text",
               "name": "clientAddress",
               "title": "Address:",
+              "isRequired": true,
               "autocomplete": "street-address"
             },
             {
               "type": "text",
               "name": "clientCity",
               "startWithNewLine": false,
-              "title": "City:"
+              "title": "City:",
+              "isRequired": true
             },
             {
               "type": "text",
               "name": "clientPostCode",
               "title": "Post Code:",
+              "isRequired": true,
               "autocomplete": "postal-code"
             },
             {
@@ -198,6 +206,7 @@ export const json = {
               "type": "matrixdynamic",
               "name": "invoiceItems",
               "title": "Invoice Items",
+              "isRequired": true,
               "columns": [
                 {
                   "name": "id",
@@ -299,19 +308,22 @@ export const json = {
             {
               "type": "text",
               "name": "nameOnAccount",
-              "title": "Name on Account:"
+              "title": "Name on Account:",
+              "isRequired": true
             },
             {
               "type": "text",
               "name": "sortCode",
               "startWithNewLine": false,
-              "title": "Sort Code:"
+              "title": "Sort Code:",
+              "isRequired": true
             },
             {
               "type": "text",
               "name": "accountNumber",
               "startWithNewLine": false,
               "title": "Account Number:",
+              "isRequired": true,
               "validators": [
                 {
                   "type": "expression"

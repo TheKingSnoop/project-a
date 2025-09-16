@@ -24,7 +24,7 @@ export class CreateInvoiceComponent implements OnInit {
     options.showSaveInProgress();
     this.invoicesService.createInvoice({
       vatPercentage: invoiceFormResults.vatPercentage,
-      invoiceItemsTotal: invoiceFormResults.invoiceItemsTotal,
+      invoiceItemsTotal: invoiceFormResults['invoiceItems-total'].amount,
       vat: invoiceFormResults.vat,
       finalTotal: invoiceFormResults.finalTotal,
       invoiceItems: invoiceFormResults.invoiceItems,
