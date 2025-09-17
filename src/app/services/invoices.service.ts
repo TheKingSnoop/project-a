@@ -14,4 +14,9 @@ export class InvoicesService {
     const createInvoiceUrl = `${this.baseUrl}/invoices/generate`;
     return this.http.post(createInvoiceUrl, invoiceFormResults);
   }
+
+  getInvoiceURL(userId: any, invoiceId: any) {
+    const invoiceUrl = `${this.baseUrl}/invoices/download-invoice/${userId}/${invoiceId}`;
+    return this.http.get(invoiceUrl);
+  }
 }

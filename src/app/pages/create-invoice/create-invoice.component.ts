@@ -51,7 +51,7 @@ export class CreateInvoiceComponent implements OnInit {
       sortCode: invoiceFormResults.sortCode,
       accountNumber: invoiceFormResults.accountNumber,
       bankName: invoiceFormResults.bankName,
-      id: "68c000d33d61719b5a89bb93"
+      id: "68c000d33d61719b5a89bb93" //update this hardcoded _id, do we still need this?
     }).subscribe((response) => {
       console.log('Invoice created successfully:', response);
       setTimeout(() => {
