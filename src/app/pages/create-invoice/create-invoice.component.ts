@@ -5,6 +5,7 @@ import { themeJson } from '../../styles/themes/surveyjsTheme';
 import { json } from '../../services/surveyjs/createSurvey/json';
 import { InvoicesService } from '../../services/invoices.service';
 import { Router} from '@angular/router';
+import { jwtDecode } from 'jwt-decode';
 
 @Component({
   selector: 'app-create-invoice',
@@ -51,11 +52,11 @@ export class CreateInvoiceComponent implements OnInit {
       sortCode: invoiceFormResults.sortCode,
       accountNumber: invoiceFormResults.accountNumber,
       bankName: invoiceFormResults.bankName,
-      id: "68c000d33d61719b5a89bb93" //update this hardcoded _id, do we still need this?
+      id: this.decodedJwtObject.id
     }).subscribe((response) => {
       console.log('Invoice created successfully:', response);
       setTimeout(() => {
-        this.router.navigate(['/account/invoice-created/success']);
+        this.router.navigate(['/account/create-invoice/invoice-created/success']);
       }, 2000);
       options.showSaveSuccess();
     });
@@ -68,8 +69,12 @@ export class CreateInvoiceComponent implements OnInit {
     this.model = invoiceForm;
     invoiceForm.onComplete.add(this.createInvoice.bind(this));
   }
-
+decodedJwtObject: any = {};
   ngOnInit(): void {
+    const token = localStorage.getItem('jwt_token');
+      if (token) {
+        this.decodedJwtObject = jwtDecode(token);
     this.loadCreateInvoiceForm();
   }
+    }
 }

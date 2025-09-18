@@ -54,6 +54,7 @@ export class SignUpComponent implements OnInit {
       console.log('Survey results:', survey.data);
       // Handle the survey data here
       this.signUpService.createUser({
+      title: survey.data.title,
       name: survey.data.name,
       surname: survey.data.surname,
       email: survey.data.email,

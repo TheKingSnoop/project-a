@@ -20,15 +20,15 @@
     <mat-nav-list>
       <mat-list-item-title mat-subheader>Invoices</mat-list-item-title>
       <mat-list-item
-        *ngFor="let invoice of invoices; let index = index"
-        (click)="navigateToPage('account/' + (index + 1)); toggleOnMobile(sidenav);"
+        *ngFor="let invoice of invoiceArray(); let index = index"
+        (click)="navigateToPage('account/' + decodedJwtObject.id + '/' + invoice._id); toggleOnMobile(sidenav);"
       >
         <mat-icon matListItemIcon>description</mat-icon>
         <h2 matListItemTitle>
-          {{ invoice.name }}
+          {{ invoice.titleOfInvoice ? invoice.titleOfInvoice : 'No Title' }}
         </h2>
         <h2 matListItemLine>
-          {{ invoice.updated | date }}
+          {{ invoice.dateCreated? (invoice.dateCreated | date) : 'No Date' }}
         </h2>
       </mat-list-item>
     </mat-nav-list>

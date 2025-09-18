@@ -13,7 +13,7 @@ export const routes: Routes = [
   { path: 'sign-up', component: SignUpComponent },
   { path: 'login', component: LoginComponent },
   { path: 'account/create-invoice', component: CreateInvoiceComponent },
-  { path: 'account/:id', component: InvoiceIdComponent },
-  { path: 'account/invoice-created/success', component: InvoiceCreatedComponent },
+  { path: 'account/:userId/:invoiceId', component: InvoiceIdComponent },
+  { path: 'account/create-invoice/invoice-created/success', component: InvoiceCreatedComponent },
   { path: '**', redirectTo: '' }, // Fallback route for unknown paths
 ];
