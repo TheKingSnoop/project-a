@@ -1,7 +1,7 @@
 export const json = {
   "title": "Sign Up",
   "description": "Please fill in details to create an account.",
-  "completedHtml": "<h3>Thank you {name} for signing up!</h3>\\n<br>\\n<p>Your account has been created successfully. You will receive a confirmation email shortly.</p>",
+  "completedHtml": "<h3>Thank you {name} for signing up!</h3><br><p>Your account has been created successfully.</p>",
   "completedBeforeHtml": "You have already created an account.",
   "loadingHtml": "Loading Sign Up...",
   "pages": [

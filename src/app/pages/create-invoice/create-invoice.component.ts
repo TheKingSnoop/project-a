@@ -4,7 +4,7 @@ import { SurveyModule } from 'survey-angular-ui';
 import { themeJson } from '../../styles/themes/surveyjsTheme';
 import { json } from '../../services/surveyjs/createSurvey/json';
 import { InvoicesService } from '../../services/invoices.service';
-import { Router} from '@angular/router';
+import { Router } from '@angular/router';
 import { jwtDecode } from 'jwt-decode';
 
 @Component({
@@ -16,50 +16,55 @@ import { jwtDecode } from 'jwt-decode';
 export class CreateInvoiceComponent implements OnInit {
   model!: Model;
 
-  constructor(private invoicesService: InvoicesService, private  router: Router) {}
+  constructor(
+    private invoicesService: InvoicesService,
+    private router: Router
+  ) {}
 
   //this function sends the form data to the backend to create a new invoice
   createInvoice(sender: any, options: any) {
     const invoiceFormResults = sender.data;
-    console.log('Creating invoice with results:', invoiceFormResults);
     options.showSaveInProgress();
-    this.invoicesService.createInvoice({
-      vatPercentage: invoiceFormResults.vatPercentage,
-      invoiceItemsTotal: invoiceFormResults['invoiceItems-total'].amount,
-      vat: invoiceFormResults.vat,
-      finalTotal: invoiceFormResults.finalTotal,
-      invoiceItems: invoiceFormResults.invoiceItems,
-      titleOfInvoice: invoiceFormResults.titleOfInvoice,
-      nameOfYourCompany: invoiceFormResults.nameOfYourCompany,
-      yourName: invoiceFormResults.yourName,
-      yourSurname: invoiceFormResults.yourSurname,
-      yourAddress: invoiceFormResults.yourAddress,
-      yourCity: invoiceFormResults.yourCity,
-      yourPostCode: invoiceFormResults.yourPostCode,
-      yourEmail: invoiceFormResults.yourEmail,
-      phoneNumber: invoiceFormResults.phoneNumber,
-      companyName: invoiceFormResults.companyName,
-      clientName: invoiceFormResults.clientName,
-      clientSurname: invoiceFormResults.clientSurname,
-      clientAddress: invoiceFormResults.clientAddress,
-      clientCity: invoiceFormResults.clientCity,
-      clientPostCode: invoiceFormResults.clientPostCode,
-      clientEmail: invoiceFormResults.clientEmail,
-      referenceNumber: invoiceFormResults.referenceNumber,
-      issueDate: invoiceFormResults.issueDate,
-      dueDate: invoiceFormResults.dueDate,
-      nameOnAccount: invoiceFormResults.nameOnAccount,
-      sortCode: invoiceFormResults.sortCode,
-      accountNumber: invoiceFormResults.accountNumber,
-      bankName: invoiceFormResults.bankName,
-      id: this.decodedJwtObject.id
-    }).subscribe((response) => {
-      console.log('Invoice created successfully:', response);
-      setTimeout(() => {
-        this.router.navigate(['/account/create-invoice/invoice-created/success']);
-      }, 2000);
-      options.showSaveSuccess();
-    });
+    this.invoicesService
+      .createInvoice({
+        vatPercentage: invoiceFormResults.vatPercentage,
+        invoiceItemsTotal: invoiceFormResults['invoiceItems-total'].amount,
+        vat: invoiceFormResults.vat,
+        finalTotal: invoiceFormResults.finalTotal,
+        invoiceItems: invoiceFormResults.invoiceItems,
+        titleOfInvoice: invoiceFormResults.titleOfInvoice,
+        nameOfYourCompany: invoiceFormResults.nameOfYourCompany,
+        yourName: invoiceFormResults.yourName,
+        yourSurname: invoiceFormResults.yourSurname,
+        yourAddress: invoiceFormResults.yourAddress,
+        yourCity: invoiceFormResults.yourCity,
+        yourPostCode: invoiceFormResults.yourPostCode,
+        yourEmail: invoiceFormResults.yourEmail,
+        phoneNumber: invoiceFormResults.phoneNumber,
+        companyName: invoiceFormResults.companyName,
+        clientName: invoiceFormResults.clientName,
+        clientSurname: invoiceFormResults.clientSurname,
+        clientAddress: invoiceFormResults.clientAddress,
+        clientCity: invoiceFormResults.clientCity,
+        clientPostCode: invoiceFormResults.clientPostCode,
+        clientEmail: invoiceFormResults.clientEmail,
+        referenceNumber: invoiceFormResults.referenceNumber,
+        issueDate: invoiceFormResults.issueDate,
+        dueDate: invoiceFormResults.dueDate,
+        nameOnAccount: invoiceFormResults.nameOnAccount,
+        sortCode: invoiceFormResults.sortCode,
+        accountNumber: invoiceFormResults.accountNumber,
+        bankName: invoiceFormResults.bankName,
+        id: this.decodedJwtObject.id,
+      })
+      .subscribe((response) => {
+        setTimeout(() => {
+          this.router.navigate([
+            '/account/create-invoice/invoice-created/success',
+          ]);
+        }, 2000);
+        options.showSaveSuccess();
+      });
   }
 
   //this function initializes the survey form
@@ -69,12 +74,12 @@ export class CreateInvoiceComponent implements OnInit {
     this.model = invoiceForm;
     invoiceForm.onComplete.add(this.createInvoice.bind(this));
   }
-decodedJwtObject: any = {};
+  decodedJwtObject: any = {};
   ngOnInit(): void {
     const token = localStorage.getItem('jwt_token');
-      if (token) {
-        this.decodedJwtObject = jwtDecode(token);
-    this.loadCreateInvoiceForm();
-  }
+    if (token) {
+      this.decodedJwtObject = jwtDecode(token);
+      this.loadCreateInvoiceForm();
     }
+  }
 }

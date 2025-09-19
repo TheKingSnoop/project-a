@@ -4,6 +4,7 @@ import { SurveyModule } from 'survey-angular-ui';
 import { json } from "../../services/surveyjs/signUp/json";
 import { FormsModule } from '@angular/forms';
 import { SignUpService } from '../../services/signUp.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -13,11 +14,9 @@ import { SignUpService } from '../../services/signUp.service';
   styleUrl: './sign-up.component.scss',
 })
 export class SignUpComponent implements OnInit {
-  model: Model;
+  model!: Model;
 
-  constructor(private signUpService: SignUpService) {
-    this.model = new Model(json);
-    this.setupValidation();
+  constructor(private signUpService: SignUpService, private router: Router) {
   }
 
   private setupValidation(): void {
@@ -48,20 +47,31 @@ export class SignUpComponent implements OnInit {
     });
   }
 
+  loadSignUpForm() {
+    const signUpForm = new Model(json);
+    this.model = signUpForm;
+    this.setupValidation();
+    signUpForm.onComplete.add(this.createUser.bind(this));
+  }
+
+  createUser(sender: any, options: any) {
+    const signUpFormResults = sender.data;
+    options.showSaveInProgress();
+    this.signUpService.createUser({
+      title: signUpFormResults.title,
+      name: signUpFormResults.name,
+      surname: signUpFormResults.surname,
+      email: signUpFormResults.email,
+      password: signUpFormResults.password
+    }).subscribe((response) => {
+      options.showSaveSuccess();
+      setTimeout(() => {
+        this.router.navigate(['/login']);
+      }, 2000);
+    });
+  }
+
   ngOnInit(): void {
-    // Handle survey completion
-    this.model.onComplete.add((survey) => {
-      console.log('Survey results:', survey.data);
-      // Handle the survey data here
-      this.signUpService.createUser({
-      title: survey.data.title,
-      name: survey.data.name,
-      surname: survey.data.surname,
-      email: survey.data.email,
-      password: survey.data.password
-    }).subscribe(response => {
-      console.log('User created successfully:', response);
-    });
-    });
+    this.loadSignUpForm();
   }
 }
