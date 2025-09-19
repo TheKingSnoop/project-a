@@ -1,5 +1,11 @@
 <h1 class="page-title">Invoice: {{ invoice().titleOfInvoice }}</h1>
-<mat-grid-list cols="2" rowHeight="300px">
+<div class="buttons">
+  <button mat-button><mat-icon>download</mat-icon>Download PDF</button>
+  <button mat-flat-button id="btn-edit"><mat-icon>edit</mat-icon>Edit</button>
+  <button mat-flat-button id="btn-delete" (click)="deleteInvoice()"><mat-icon>delete</mat-icon>Delete</button>
+</div>
+<mat-divider/>
+<mat-grid-list cols="2" rowHeight="250px" class="invoice-grid">
       <mat-grid-tile colspan="2" rows="2">
         <div class="invoice-tile">
           <h3>YOUR COMPANY:</h3>
@@ -24,14 +30,16 @@
       <mat-grid-tile [colspan]="columnSpan()" rowspan="1">
         <div class="invoice-tile invoice-total">
           <h3>INVOICE:</h3>
-          <p>Reference Number: {{invoice().referenceNumber}}</p>
-          <p>Issue Date: {{invoice().issueDate | date}}</p>
-          <p>{{invoice().dueDate && 'Due Date: ' + (invoice().dueDate | date)}}</p>
+          <p><span class="span-label">Reference Number: </span>{{invoice().referenceNumber}}</p>
+          <p><span class="span-label">Issue Date: </span>{{invoice().issueDate | date}}</p>
+          <p *ngIf="invoice().dueDate">
+            <span class="span-label">Due Date: </span>{{ invoice().dueDate | date }}
+          </p>
         </div>
       </mat-grid-tile>
-      <mat-grid-tile colspan="2" rowspan="2">
+      <mat-grid-tile colspan="2" rowspan="1.5">
         <div class="invoice-tile">
-          <table mat-table [dataSource]="invoice().invoiceItems">
+          <table mat-table [dataSource]="invoice().invoiceItems" style="background-color: inherit;">
             <ng-container matColumnDef="description">
               <th mat-header-cell *matHeaderCellDef>Description</th>
               <td mat-cell *matCellDef="let element">
@@ -61,20 +69,22 @@
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
           </table>
-          <div class="invoice-total">
-            <h3>INVOICE TOTAL:</h3>
-            <p>Subtotal: {{invoice().invoiceItemsTotal | currency : "GBP" : "symbol" : "1.2-2"}}</p>
-            <p>VAT ({{invoice().vatPercentage}}%): {{invoice().vat | currency : "GBP" : "symbol" : "1.2-2"}}</p>
-            <p>Total: {{invoice().finalTotal | currency : "GBP" : "symbol" : "1.2-2"}}</p>
-          </div>
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile colspan="2" rowspan="1">
+        <div class="invoice-tile invoice-total">
+          <h3>INVOICE TOTAL:</h3>
+          <p><span class="span-label">Subtotal: </span>{{invoice().invoiceItemsTotal | currency : "GBP" : "symbol" : "1.2-2"}}</p>
+          <p><span class="span-label">VAT ({{invoice().vatPercentage}}%): </span>{{invoice().vat | currency : "GBP" : "symbol" : "1.2-2"}}</p>
+          <p><span class="span-label">Total: </span>{{invoice().finalTotal | currency : "GBP" : "symbol" : "1.2-2"}}</p>
         </div>
       </mat-grid-tile>
       <mat-grid-tile colspan="2" rowspan="1">
         <div class="invoice-tile">
           <h3>PAY BY BANK TRANSFER:</h3>
-          <p>Bank Sort code: {{invoice().sortCode}}</p>
-          <p>Bank Account Number: {{invoice().accountNumber}}</p>
-          <p>{{invoice().bankName && 'Bank Name: ' + invoice().bankName}}</p>
+          <p><span class="span-label">Bank Sort Code: </span>{{invoice().sortCode}}</p>
+          <p><span class="span-label">Bank Account Number: </span>{{invoice().accountNumber}}</p>
+          <p *ngIf="invoice().bankName"><span class="span-label">Bank Name: </span>{{invoice().bankName}}</p>
         </div>
       </mat-grid-tile>
     </mat-grid-list>
