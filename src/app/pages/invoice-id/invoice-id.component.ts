@@ -75,6 +75,11 @@ export class InvoiceIdComponent implements OnInit {
     });
   }
 
+  navigateToEditInvoice() {
+    const { userId, invoiceId } = this.route.snapshot.params;
+    this.router.navigate([`/account/edit-invoice`, userId, invoiceId]);
+  }
+
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
       const userId = params['userId'];

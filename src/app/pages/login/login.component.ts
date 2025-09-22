@@ -21,18 +21,15 @@ export class LoginComponent implements OnInit {
 
   login(sender: any, options: any) {
     const formResults = sender.data
-    console.log('Logging in with results:', formResults);
     this.loginService.login({
       email: formResults.email,
       password: formResults.password
     }).subscribe({
       next: (response) => {
-        console.log('Login successful:', response);
         localStorage.setItem("jwt_token", (response as any).token);
         this.router.navigate(['/account']);
       },
       error: (error) => {
-        console.error('Login failed:', error.error.message);
         this.loginResult = error.error.message;
       }
     });

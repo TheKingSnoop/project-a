@@ -20,7 +20,7 @@
     <mat-nav-list>
       <mat-list-item-title mat-subheader>Invoices</mat-list-item-title>
       <mat-list-item
-        *ngFor="let invoice of invoiceArray(); let index = index"
+        *ngFor="let invoice of this.invoiceService.invoicesArray(); let index = index"
         (click)="navigateToPage('account/' + decodedJwtObject.id + '/' + invoice._id); toggleOnMobile(sidenav);"
       >
         <mat-icon matListItemIcon>description</mat-icon>

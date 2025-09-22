@@ -5,7 +5,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { Router } from '@angular/router';
-import { LoginService } from '../../services/login.service';
+
 //chartJs
 import { BaseChartDirective } from 'ng2-charts';
 import {
@@ -48,15 +48,15 @@ export interface InvDataTypes {
   styleUrl: './account.component.scss',
 })
 export class AccountComponent { 
-  newInvoicesArray = signal<any>([]);
   displayedColumns: string[] = ['icon', 'name', 'dateCreated', 'options'];
   dataSource = new MatTableDataSource<InvDataTypes>();
-  recentInvoice = "Loading...";
-
+  recentInvoice: string = "Loading...";
+  invoicesLength: number = 0;
+  decodedJwtObject: any = {};
 
 
   folderTally = computed(() => {
-    return this.newInvoicesArray().reduce((tally: Record<string, number>, invoice: any) => {
+    return this.invoicesService.invoicesArray().reduce((tally: Record<string, number>, invoice: any) => {
       tally[invoice.folder] = (tally[invoice.folder] || 0) + 1;
       return tally;
     }, {});
@@ -65,8 +65,6 @@ export class AccountComponent {
     private router: Router,
     private invoicesService: InvoicesService
   ) {}
-  //Total invoices
-  invoicesLength = 0;
 
   deleteInvoice(userId: string, invoiceId: string) {
     this.invoicesService.deleteInvoiceById(userId, invoiceId).subscribe((result: any) => {
@@ -77,7 +75,7 @@ export class AccountComponent {
       }
     });
   }
-  //Most recent invoice
+ 
   //Pie chart configuration
   pieChartType: ChartType = 'pie';
   pieChartData = computed<ChartData<'pie'>>(() => {
@@ -117,8 +115,9 @@ export class AccountComponent {
     this.router.navigate([`/${page}`]);
   }
 
-  decodedJwtObject: any = {};
-
+ navigateToEditInvoice(userId: string, invoiceId: string) {
+  this.router.navigate([`/account/edit-invoice`, userId, invoiceId]);
+}
 
   ngOnInit() {
     const token = localStorage.getItem('jwt_token');
@@ -129,10 +128,10 @@ export class AccountComponent {
     this.invoicesService
       .getAllInvoices(this.decodedJwtObject.id)
       .subscribe((result: any) => {
-        this.newInvoicesArray.set(result.payload);
+        this.invoicesService.invoicesArray.set(result.payload);
         this.dataSource.data = result.payload;
-        this.invoicesLength = this.newInvoicesArray().length;
-        this.recentInvoice = this.newInvoicesArray()
+        this.invoicesLength = this.invoicesService.invoicesArray().length;
+        this.recentInvoice = this.invoicesService.invoicesArray()
       .slice()
       .sort((a: any, b: any) => 
         new Date(b.dateCreated).getTime() - new Date(a.dateCreated).getTime()

@@ -44,7 +44,8 @@
         <button mat-icon-button (click)="deleteInvoice(decodedJwtObject.id, element._id)" id="delete">
           <mat-icon>delete</mat-icon>
         </button>
-        <button mat-icon-button><mat-icon>edit_document</mat-icon></button>
+        <button mat-icon-button (click)="navigateToEditInvoice(decodedJwtObject.id, element._id)">
+          <mat-icon>edit_document</mat-icon></button>
       </div>
     </td>
   </ng-container>

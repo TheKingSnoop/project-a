@@ -1,7 +1,7 @@
 <h1 class="page-title">Invoice: {{ invoice().titleOfInvoice }}</h1>
 <div class="buttons">
   <button mat-button><mat-icon>download</mat-icon>Download PDF</button>
-  <button mat-flat-button id="btn-edit"><mat-icon>edit</mat-icon>Edit</button>
+  <button mat-flat-button id="btn-edit" (click)="navigateToEditInvoice()"><mat-icon>edit</mat-icon>Edit</button>
   <button mat-flat-button id="btn-delete" (click)="deleteInvoice()"><mat-icon>delete</mat-icon>Delete</button>
 </div>
 <mat-divider/>

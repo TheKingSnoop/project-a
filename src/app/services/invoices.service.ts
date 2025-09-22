@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment.development';
 
@@ -9,6 +9,8 @@ export class InvoicesService {
   private readonly baseUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) {}
+
+  invoicesArray = signal<any>([]);
 
   createInvoice(invoiceFormResults: any) {
     const createInvoiceUrl = `${this.baseUrl}/invoices/generate`;
@@ -33,5 +35,10 @@ export class InvoicesService {
   deleteInvoiceById(userId: string, invoiceId: string) {
     const deleteInvoiceUrl = `${this.baseUrl}/invoices/delete/${userId}/${invoiceId}`;
     return this.http.delete(deleteInvoiceUrl);
+  }
+
+  updateInvoiceById(userId: string, invoiceId: string, updatedInvoiceData: any) {
+    const updateInvoiceUrl = `${this.baseUrl}/invoices/update/${userId}/${invoiceId}`;
+    return this.http.put(updateInvoiceUrl, updatedInvoiceData);
   }
 }
