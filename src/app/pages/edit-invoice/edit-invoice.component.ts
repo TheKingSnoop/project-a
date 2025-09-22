@@ -1,33 +1,34 @@
 import { Component, OnInit } from '@angular/core';
+import { InvoicesService } from '../../services/invoices.service';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Model } from 'survey-core';
 import { SurveyModule } from 'survey-angular-ui';
-import { themeJson } from '../../styles/themes/surveyjsTheme';
-import { json } from '../../services/surveyjs/createSurvey/json';
-import { InvoicesService } from '../../services/invoices.service';
-import { Router } from '@angular/router';
-import { jwtDecode } from 'jwt-decode';
+import { json } from '../../services/surveyjs/createSurvey/json'; // adjust path as needed
 
 @Component({
-  selector: 'app-create-invoice',
+  selector: 'app-edit-invoice',
   imports: [SurveyModule],
-  templateUrl: './create-invoice.component.html',
-  styleUrl: './create-invoice.component.scss',
+  templateUrl: './edit-invoice.component.html',
+  styleUrl: './edit-invoice.component.scss'
 })
-export class CreateInvoiceComponent implements OnInit {
+export class EditInvoiceComponent implements OnInit {
+  invoice: any = {};
   model!: Model;
+  userId: string = '';
+  invoiceId: string = '';
 
   constructor(
     private invoicesService: InvoicesService,
+    private route: ActivatedRoute,
     private router: Router
   ) {}
 
-  //this function sends the form data to the backend to create a new invoice
-  createInvoice(sender: any, options: any) {
+  //this function sends the form data to the backend to update an existing invoice
+  editInvoice(sender: any, options: any) {
     const invoiceFormResults = sender.data;
     options.showSaveInProgress();
-    this.invoicesService
-      .createInvoice({
-        vatPercentage: invoiceFormResults.vatPercentage,
+    this.invoicesService.updateInvoiceById(this.userId, this.invoiceId, {
+       vatPercentage: invoiceFormResults.vatPercentage,
         invoiceItemsTotal: invoiceFormResults['invoiceItems-total'].amount,
         vat: invoiceFormResults.vat,
         finalTotal: invoiceFormResults.finalTotal,
@@ -55,31 +56,29 @@ export class CreateInvoiceComponent implements OnInit {
         sortCode: invoiceFormResults.sortCode,
         accountNumber: invoiceFormResults.accountNumber,
         bankName: invoiceFormResults.bankName,
-        id: this.decodedJwtObject.id,
-      })
-      .subscribe((response) => {
-        setTimeout(() => {
+    }).subscribe((response) => {
+      setTimeout(() => {
           this.router.navigate([
             '/account/create-invoice/invoice-created/success',
           ]);
         }, 2000);
-        options.showSaveSuccess();
-      });
+      options.showSaveComplete();
+  });
+}
+
+  loadEditInvoiceForm() {
+    this.invoicesService.getInvoiceById(this.userId, this.invoiceId).subscribe((invoice) => {
+      this.invoice = invoice;
+      this.model = new Model(json);
+      this.model.data = this.invoice.payload[0];
+      this.model.title = "Edit Invoice";
+      this.model.onComplete.add(this.editInvoice.bind(this))
+    });
   }
 
-  //this function initializes the survey form
-  loadCreateInvoiceForm() {
-    const invoiceForm = new Model(json);
-    //invoiceForm.css = themeJson; //unsure what this does so it is commented out for now
-    this.model = invoiceForm;
-    invoiceForm.onComplete.add(this.createInvoice.bind(this));
-  }
-  decodedJwtObject: any = {};
-  ngOnInit(): void {
-    const token = localStorage.getItem('jwt_token');
-    if (token) {
-      this.decodedJwtObject = jwtDecode(token);
-      this.loadCreateInvoiceForm();
-    }
+  ngOnInit() {
+    this.userId = this.route.snapshot.paramMap.get('userId') || '';
+    this.invoiceId = this.route.snapshot.paramMap.get('invoiceId') || '';
+    this.loadEditInvoiceForm();
   }
 }

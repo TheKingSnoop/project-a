@@ -4,7 +4,7 @@
     <h1 id="generator">Generator</h1>
   </div>
   <div class="landing-buttons">
-    <button mat-flat-button (click)="navigateToPage('account')">My Account<mat-icon>account_circle</mat-icon></button>
+    <button mat-flat-button *ngIf="isLoggedIn()" (click)="navigateToPage('account')">My Account<mat-icon>account_circle</mat-icon></button>
     <button mat-flat-button class="tertiary" *ngIf="!isLoggedIn()" (click)="navigateToPage('sign-up')">Sign Up<mat-icon>person_add</mat-icon></button>
   </div>
   <div class="subHeading">

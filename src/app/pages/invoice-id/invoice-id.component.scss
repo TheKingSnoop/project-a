@@ -1,8 +1,44 @@
+.invoice-grid {
+  background-color: var(--mat-sys-surface-variant);
+}
+
 .invoice-tile {
   width: 100%;
-  height: 100%;
+  padding: 10px;
 }
 
 .invoice-total {
   text-align: right;
+}
+
+.buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  margin-bottom: 10px;
+}
+
+button {
+  width: 150px;
+  border-radius: 5px;
+}
+
+#btn-edit {
+  background-color: var(--mat-sys-primary);
+}
+
+#btn-delete {
+  background-color: var(--mat-sys-error);
+}
+
+.mat-column-amount, .mat-column-unitPrice {
+  text-align: right;
+}
+
+.mat-column-quantity {
+  text-align: center;
+}
+
+.span-label {
+  font-weight: lighter;
 }
