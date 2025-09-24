@@ -1,2 +1,20 @@
-<survey [model]="model"></survey>
-<h2>{{ loginResult }}</h2>
+<div class="login-container">
+  <survey [model]="model" class="survey"></survey>
+  <div class="card-container">
+    <h1>My Application</h1>
+    {{ loginResult }}
+    <mat-card class="card" appearance="outlined">
+        <mat-card-header>
+            <mat-card-title>Don't have an account?</mat-card-title>
+            <mat-card-subtitle>Create one now!</mat-card-subtitle>
+        </mat-card-header>
+        <img mat-card-image src="landingPage.jpg" alt="Login Image" />
+        <mat-card-content>
+            <p>Click the button below to create an account.</p>
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-button color="primary" (click)="navigateToPage('sign-up')">Create Account</button>
+        </mat-card-actions>
+    </mat-card>
+  </div>
+</div>

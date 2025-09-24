@@ -1,6 +1,6 @@
 export const json = {
   "title": "Log in",
-  "description": "Fill in details to log into your account",
+  "description": "Fill in details to log into your account.",
   "completedHtml": "Logging into your account",
   "completedBeforeHtml": "You are already logged in.",
   "loadingHtml": "Loading login..",

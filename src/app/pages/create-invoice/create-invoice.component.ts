@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Model } from 'survey-core';
 import { SurveyModule } from 'survey-angular-ui';
-import { themeJson } from '../../styles/themes/surveyjsTheme';
 import { json } from '../../services/surveyjs/createSurvey/json';
 import { InvoicesService } from '../../services/invoices.service';
 import { Router } from '@angular/router';
@@ -15,11 +14,14 @@ import { jwtDecode } from 'jwt-decode';
 })
 export class CreateInvoiceComponent implements OnInit {
   model!: Model;
+  decodedJwtObject: any;
 
   constructor(
     private invoicesService: InvoicesService,
     private router: Router
-  ) {}
+  ) {
+    this.decodedJwtObject = {};
+  }
 
   //this function sends the form data to the backend to create a new invoice
   createInvoice(sender: any, options: any) {
@@ -57,10 +59,11 @@ export class CreateInvoiceComponent implements OnInit {
         bankName: invoiceFormResults.bankName,
         id: this.decodedJwtObject.id,
       })
-      .subscribe((response) => {
+      .subscribe((response: any) => {
+        const invoiceId = response.payload.dbInvoiceId;
         setTimeout(() => {
           this.router.navigate([
-            '/account/create-invoice/invoice-created/success',
+            `/account/create-invoice/invoice-created/${this.decodedJwtObject.id}/${invoiceId}/success`,
           ]);
         }, 2000);
         options.showSaveSuccess();
@@ -69,17 +72,15 @@ export class CreateInvoiceComponent implements OnInit {
 
   //this function initializes the survey form
   loadCreateInvoiceForm() {
-    const invoiceForm = new Model(json);
-    //invoiceForm.css = themeJson; //unsure what this does so it is commented out for now
-    this.model = invoiceForm;
-    invoiceForm.onComplete.add(this.createInvoice.bind(this));
-  }
-  decodedJwtObject: any = {};
-  ngOnInit(): void {
     const token = localStorage.getItem('jwt_token');
     if (token) {
       this.decodedJwtObject = jwtDecode(token);
-      this.loadCreateInvoiceForm();
+      this.model = new Model(json);
+      this.model.onComplete.add(this.createInvoice.bind(this));
     }
+  }
+  
+  ngOnInit(): void {
+    this.loadCreateInvoiceForm();
   }
 }

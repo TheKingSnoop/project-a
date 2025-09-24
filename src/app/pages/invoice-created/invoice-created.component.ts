@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { InvoicesService } from '../../services/invoices.service';
 
 @Component({
@@ -11,10 +11,19 @@ import { InvoicesService } from '../../services/invoices.service';
   styleUrl: './invoice-created.component.scss',
 })
 export class InvoiceCreatedComponent {
+  userId: string;
+  invoiceId: string;
+
   constructor(
+    private route: ActivatedRoute,
     private router: Router,
     private invoicesService: InvoicesService
-  ) {}
+  ) {
+    this.userId = route.snapshot.paramMap.get('userId') || '';
+    this.invoiceId = route.snapshot.paramMap.get('invoiceId') || '';
+    console.log('userId:', this.userId);
+    console.log('invoiceId:', this.invoiceId);
+  }
 
   navigateToPage(page: string) {
     this.router.navigate([`/${page}`]);
@@ -22,8 +31,7 @@ export class InvoiceCreatedComponent {
 
   downloadInvoice() {
     return this.invoicesService
-    //update this with real dynnamic values
-      .getInvoiceURL('68c000d33d61719b5a89bb93', '68c2bba5d6a3b0e59f89991c')
+      .getInvoiceURL(this.userId, this.invoiceId)
       .subscribe((response: any) => {
         if (response.success && response.payload.downloadUrl) {
           const downloadUrl = response.payload.downloadUrl;

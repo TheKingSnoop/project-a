@@ -59,10 +59,10 @@ export class EditInvoiceComponent implements OnInit {
     }).subscribe((response) => {
       setTimeout(() => {
           this.router.navigate([
-            '/account/create-invoice/invoice-created/success',
+            `/account/create-invoice/invoice-created/${this.userId}/${this.invoiceId}/success`,
           ]);
         }, 2000);
-      options.showSaveComplete();
+      options.showSaveSuccess();
   });
 }
 

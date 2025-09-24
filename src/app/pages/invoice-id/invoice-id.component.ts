@@ -27,7 +27,7 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
     CommonModule,
     MatGridListModule,
     MatTableModule,
-    MatSnackBarModule
+    MatSnackBarModule,
   ],
   templateUrl: './invoice-id.component.html',
   styleUrl: './invoice-id.component.scss',
@@ -38,16 +38,14 @@ export class InvoiceIdComponent implements OnInit {
   isMobile = signal<boolean>(false);
 
   // Table columns
-  displayedColumns: string[] = [
-    'description',
-    'quantity',
-    'unitPrice',
-    'amount',
-  ];
+  displayedColumns: string[];
 
   // Computed properties
   columnSpan = computed(() => (this.isMobile() ? 2 : 1));
 
+  // Route parameters
+  userId: string;
+  invoiceId: string;
   constructor(
     private route: ActivatedRoute,
     private invoicesService: InvoicesService,
@@ -61,26 +59,33 @@ export class InvoiceIdComponent implements OnInit {
       .subscribe((result: BreakpointState) => {
         this.isMobile.set(result.matches);
       });
+
+    this.userId = this.route.snapshot.params['userId'];
+    this.invoiceId = this.route.snapshot.params['invoiceId'];
+    this.displayedColumns = ['description', 'quantity', 'unitPrice', 'amount'];
   }
 
   deleteInvoice() {
-    const userId = this.route.snapshot.params['userId'];
-    const invoiceId = this.route.snapshot.params['invoiceId'];
-    this.invoicesService.deleteInvoiceById(userId, invoiceId).subscribe(() => {
-      this.snackBar.open('Invoice deleted successfully.', 'Close', {
-      duration: 3000,
-      verticalPosition: 'bottom'
-    });
-    this.router.navigate(['/account']);
-    });
+    this.invoicesService
+      .deleteInvoiceById(this.userId, this.invoiceId)
+      .subscribe(() => {
+        this.snackBar.open('Invoice deleted successfully.', 'Close', {
+          duration: 3000,
+          verticalPosition: 'bottom',
+        });
+        this.router.navigate(['/account']);
+      });
   }
 
   navigateToEditInvoice() {
-    const { userId, invoiceId } = this.route.snapshot.params;
-    this.router.navigate([`/account/edit-invoice`, userId, invoiceId]);
+    this.router.navigate([
+      `/account/edit-invoice`,
+      this.userId,
+      this.invoiceId,
+    ]);
   }
 
-  ngOnInit(): void {
+  loadInvoiceById() {
     this.route.params.subscribe((params) => {
       const userId = params['userId'];
       const invoiceId = params['invoiceId'];
@@ -90,5 +95,23 @@ export class InvoiceIdComponent implements OnInit {
           this.invoice.set(result.payload[0]);
         });
     });
+  }
+
+  downloadInvoice() {
+    return this.invoicesService
+      .getInvoiceURL(this.userId, this.invoiceId)
+      .subscribe((response: any) => {
+        if (response.success && response.payload.downloadUrl) {
+          const downloadUrl = response.payload.downloadUrl;
+
+          window.open(downloadUrl, '_blank');
+        } else {
+          console.error('Invalid response format:', response);
+        }
+      });
+  }
+
+  ngOnInit(): void {
+    this.loadInvoiceById();
   }
 }

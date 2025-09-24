@@ -1,11 +1,11 @@
-<h1 class="page-title">Invoice: {{ invoice().titleOfInvoice }}</h1>
+<h1 class="page-title" *ngIf="invoice()">Invoice: {{ invoice().titleOfInvoice }}</h1>
 <div class="buttons">
-  <button mat-button><mat-icon>download</mat-icon>Download PDF</button>
+  <button mat-button (click)="downloadInvoice()"><mat-icon>download</mat-icon>Download PDF</button>
   <button mat-flat-button id="btn-edit" (click)="navigateToEditInvoice()"><mat-icon>edit</mat-icon>Edit</button>
   <button mat-flat-button id="btn-delete" (click)="deleteInvoice()"><mat-icon>delete</mat-icon>Delete</button>
 </div>
 <mat-divider/>
-<mat-grid-list cols="2" rowHeight="250px" class="invoice-grid">
+<mat-grid-list *ngIf="invoice()" cols="2" rowHeight="250px" class="invoice-grid">
       <mat-grid-tile colspan="2" rows="2">
         <div class="invoice-tile">
           <h3>YOUR COMPANY:</h3>
@@ -82,6 +82,7 @@
       <mat-grid-tile colspan="2" rowspan="1">
         <div class="invoice-tile">
           <h3>PAY BY BANK TRANSFER:</h3>
+          <p><span class="span-label">Account Name: </span>{{invoice().nameOnAccount}}</p>
           <p><span class="span-label">Bank Sort Code: </span>{{invoice().sortCode}}</p>
           <p><span class="span-label">Bank Account Number: </span>{{invoice().accountNumber}}</p>
           <p *ngIf="invoice().bankName"><span class="span-label">Bank Name: </span>{{invoice().bankName}}</p>
