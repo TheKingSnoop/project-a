@@ -13,12 +13,14 @@ import { filter } from 'rxjs/operators';
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  title = 'project-a-ui';
+  title: string;
   router = inject(Router);
-  isAccountsPage = false;
+  isAccountsPage: boolean;
 
   constructor() {
     // Set initial value
+    this.title = 'project-a-ui';
+    this.isAccountsPage = false;
     this.isAccountsPage = this.router.url.includes('/account');
     
     // Listen for navigation changes
