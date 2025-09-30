@@ -7,15 +7,23 @@ import { CreateInvoiceComponent } from './pages/create-invoice/create-invoice.co
 import { InvoiceIdComponent } from './pages/invoice-id/invoice-id.component';
 import { InvoiceCreatedComponent } from './pages/invoice-created/invoice-created.component';
 import { EditInvoiceComponent } from './pages/edit-invoice/edit-invoice.component';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { authGuard } from './guard/auth.guard';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'account', component: AccountComponent },
+  {
+    path: 'account', component: SidebarComponent,
+    canActivate: [authGuard],
+    children: [
+      {path: '', component: AccountComponent },
+      { path: 'create-invoice', component: CreateInvoiceComponent },
+      { path: ':userId/:invoiceId', component: InvoiceIdComponent },
+      { path: 'create-invoice/invoice-created/:userId/:invoiceId/success', component: InvoiceCreatedComponent },
+      { path: 'edit-invoice/:userId/:invoiceId', component: EditInvoiceComponent },
+    ],
+  },
   { path: 'sign-up', component: SignUpComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'account/create-invoice', component: CreateInvoiceComponent },
-  { path: 'account/:userId/:invoiceId', component: InvoiceIdComponent },
-  { path: 'account/create-invoice/invoice-created/:userId/:invoiceId/success', component: InvoiceCreatedComponent },
-  { path: 'account/edit-invoice/:userId/:invoiceId', component: EditInvoiceComponent },
   { path: '**', redirectTo: '' }, // Fallback route for unknown paths
 ];
