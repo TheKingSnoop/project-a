@@ -27,7 +27,6 @@ export class LoginComponent implements OnInit {
 
   login(sender: any, options: any) {
     const formResults = sender.data
-    
     this.loginService.login({
       email: formResults.email,
       password: formResults.password

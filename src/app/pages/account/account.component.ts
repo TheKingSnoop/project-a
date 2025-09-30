@@ -30,6 +30,11 @@ export interface InvDataTypes {
   folder: string;
 }
 
+export interface JwtPayload {
+  id: string;
+  name: string;
+}
+
 @Component({
   selector: 'app-account',
   imports: [
@@ -51,7 +56,7 @@ export class AccountComponent {
   dataSource = new MatTableDataSource<InvDataTypes>();
   recentInvoice: string;
   invoicesLength: number;
-  decodedJwtObject: any;
+  decodedJwtObject: JwtPayload;
 
   folderTally = computed(() => {
     return this.invoicesService
@@ -69,7 +74,7 @@ export class AccountComponent {
     this.displayedColumns = ['icon', 'name', 'dateCreated', 'options'];
     this.recentInvoice = 'Loading...';
     this.invoicesLength = 0;
-    this.decodedJwtObject = {};
+    this.decodedJwtObject = {id:'', name: ''};
   }
 
   deleteInvoice(userId: string, invoiceId: string) {
