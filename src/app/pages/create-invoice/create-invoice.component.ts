@@ -6,6 +6,10 @@ import { InvoicesService } from '../../services/invoices.service';
 import { Router } from '@angular/router';
 import { jwtDecode } from 'jwt-decode';
 
+export interface JwtPayload {
+  id: string;
+  name: string;
+}
 @Component({
   selector: 'app-create-invoice',
   imports: [SurveyModule],
@@ -14,18 +18,30 @@ import { jwtDecode } from 'jwt-decode';
 })
 export class CreateInvoiceComponent implements OnInit {
   model!: Model;
-  decodedJwtObject: any;
+  decodedJwtObject: JwtPayload;
 
   constructor(
     private invoicesService: InvoicesService,
     private router: Router
   ) {
-    this.decodedJwtObject = {};
+    this.decodedJwtObject = { id: '', name: '' };
+  }
+
+  formatDate(dateString: string) {
+    if (dateString == "" || dateString == null || dateString == undefined) return '';
+    else {
+      const [year, month, day] = dateString.split('-');
+      return `${day}/${month}/${year}`;
+    }
   }
 
   //this function sends the form data to the backend to create a new invoice
   createInvoice(sender: any, options: any) {
     const invoiceFormResults = sender.data;
+    //format the dates to DD/MM/YYYY
+    const formattedIssueDate = this.formatDate(invoiceFormResults.issueDate);
+    const formattedDueDate = this.formatDate(invoiceFormResults.dueDate);
+    console.log(formattedDueDate);
     options.showSaveInProgress();
     this.invoicesService
       .createInvoice({
@@ -51,8 +67,8 @@ export class CreateInvoiceComponent implements OnInit {
         clientPostCode: invoiceFormResults.clientPostCode,
         clientEmail: invoiceFormResults.clientEmail,
         referenceNumber: invoiceFormResults.referenceNumber,
-        issueDate: invoiceFormResults.issueDate,
-        dueDate: invoiceFormResults.dueDate,
+        issueDate: formattedIssueDate,
+        dueDate: formattedDueDate,
         nameOnAccount: invoiceFormResults.nameOnAccount,
         sortCode: invoiceFormResults.sortCode,
         accountNumber: invoiceFormResults.accountNumber,

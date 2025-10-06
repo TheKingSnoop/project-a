@@ -60,8 +60,8 @@ export class InvoiceIdComponent implements OnInit {
         this.isMobile.set(result.matches);
       });
 
-    this.userId = this.route.snapshot.params['userId'];
-    this.invoiceId = this.route.snapshot.params['invoiceId'];
+    this.userId = this.route.snapshot.paramMap.get('userId') || '';
+    this.invoiceId = this.route.snapshot.paramMap.get('invoiceId') || '';
     this.displayedColumns = ['description', 'quantity', 'unitPrice', 'amount'];
   }
 
@@ -91,8 +91,8 @@ export class InvoiceIdComponent implements OnInit {
       const invoiceId = params['invoiceId'];
       this.invoicesService
         .getInvoiceById(userId, invoiceId)
-        .subscribe((result: any) => {
-          this.invoice.set(result.payload[0]);
+        .subscribe((response: any) => {
+          this.invoice.set(response.payload[0]);
         });
     });
   }
@@ -103,7 +103,6 @@ export class InvoiceIdComponent implements OnInit {
       .subscribe((response: any) => {
         if (response.success && response.payload.downloadUrl) {
           const downloadUrl = response.payload.downloadUrl;
-
           window.open(downloadUrl, '_blank');
         } else {
           console.error('Invalid response format:', response);

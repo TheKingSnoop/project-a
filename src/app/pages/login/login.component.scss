@@ -5,17 +5,13 @@
     background-color: var(--mat-sys-primary-container);
 }
 
-.survey {
-    display: flex;
-    flex: 1;
-}
-
-.card-container {
+.survey-container, .card-container {
     display: flex;
     justify-content: center;
     align-items: center;
     flex: 1;
     flex-direction: column;
+    padding: 20px;
 }
 
 .card {

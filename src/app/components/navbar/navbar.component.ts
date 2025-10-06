@@ -6,15 +6,16 @@ import { MatIconModule } from '@angular/material/icon';
 import { SignalService } from '../../services/signal.service';
 import { CommonModule } from '@angular/common';
 import { LoginService } from '../../services/login.service';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-navbar',
-  imports: [MatButtonModule, MatToolbarModule, MatIconModule, CommonModule],
+  imports: [MatButtonModule, MatToolbarModule, MatIconModule, CommonModule, MatSnackBarModule],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss'
 })
 export class NavbarComponent {
-  constructor(private router: Router, private loginService: LoginService) {}
+  constructor(private router: Router, private loginService: LoginService, private snackBar: MatSnackBar) {}
 
   signalService = inject(SignalService);
   
@@ -32,6 +33,10 @@ export class NavbarComponent {
 
   logout() {
     this.loginService.logout();
+     this.snackBar.open('Logged out successfully.', 'Close', {
+          duration: 3000,
+          verticalPosition: 'bottom',
+        });
+        this.router.navigate(['/login']);
   }
-
 }

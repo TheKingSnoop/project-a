@@ -21,8 +21,6 @@ export class InvoiceCreatedComponent {
   ) {
     this.userId = route.snapshot.paramMap.get('userId') || '';
     this.invoiceId = route.snapshot.paramMap.get('invoiceId') || '';
-    console.log('userId:', this.userId);
-    console.log('invoiceId:', this.invoiceId);
   }
 
   navigateToPage(page: string) {

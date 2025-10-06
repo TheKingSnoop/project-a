@@ -9,7 +9,7 @@ import { json } from '../../services/surveyjs/createSurvey/json'; // adjust path
   selector: 'app-edit-invoice',
   imports: [SurveyModule],
   templateUrl: './edit-invoice.component.html',
-  styleUrl: './edit-invoice.component.scss'
+  styleUrl: './edit-invoice.component.scss',
 })
 export class EditInvoiceComponent implements OnInit {
   invoice: any = {};
@@ -23,12 +23,23 @@ export class EditInvoiceComponent implements OnInit {
     private router: Router
   ) {}
 
+  formatDate(dateString: string) {
+    if (dateString == "" || dateString == null || dateString == undefined) return '';
+    else {
+      const [year, month, day] = dateString.split('-');
+      return `${day}/${month}/${year}`;
+    }
+  }
+
   //this function sends the form data to the backend to update an existing invoice
   editInvoice(sender: any, options: any) {
     const invoiceFormResults = sender.data;
+    const formattedIssueDate = this.formatDate(invoiceFormResults.issueDate);
+    const formattedDueDate = this.formatDate(invoiceFormResults.dueDate);
     options.showSaveInProgress();
-    this.invoicesService.updateInvoiceById(this.userId, this.invoiceId, {
-       vatPercentage: invoiceFormResults.vatPercentage,
+    this.invoicesService
+      .updateInvoiceById(this.userId, this.invoiceId, {
+        vatPercentage: invoiceFormResults.vatPercentage,
         invoiceItemsTotal: invoiceFormResults['invoiceItems-total'].amount,
         vat: invoiceFormResults.vat,
         finalTotal: invoiceFormResults.finalTotal,
@@ -50,30 +61,33 @@ export class EditInvoiceComponent implements OnInit {
         clientPostCode: invoiceFormResults.clientPostCode,
         clientEmail: invoiceFormResults.clientEmail,
         referenceNumber: invoiceFormResults.referenceNumber,
-        issueDate: invoiceFormResults.issueDate,
-        dueDate: invoiceFormResults.dueDate,
+        issueDate: formattedIssueDate,
+        dueDate: formattedDueDate,
         nameOnAccount: invoiceFormResults.nameOnAccount,
         sortCode: invoiceFormResults.sortCode,
         accountNumber: invoiceFormResults.accountNumber,
         bankName: invoiceFormResults.bankName,
-    }).subscribe((response) => {
-      setTimeout(() => {
+      })
+      .subscribe((response) => {
+        setTimeout(() => {
           this.router.navigate([
             `/account/create-invoice/invoice-created/${this.userId}/${this.invoiceId}/success`,
           ]);
         }, 2000);
-      options.showSaveSuccess();
-  });
-}
+        options.showSaveSuccess();
+      });
+  }
 
   loadEditInvoiceForm() {
-    this.invoicesService.getInvoiceById(this.userId, this.invoiceId).subscribe((invoice) => {
-      this.invoice = invoice;
-      this.model = new Model(json);
-      this.model.data = this.invoice.payload[0];
-      this.model.title = "Edit Invoice";
-      this.model.onComplete.add(this.editInvoice.bind(this))
-    });
+    this.invoicesService
+      .getInvoiceById(this.userId, this.invoiceId)
+      .subscribe((response) => {
+        this.invoice = response;
+        this.model = new Model(json);
+        this.model.data = this.invoice.payload[0];
+        this.model.title = 'Edit Invoice';
+        this.model.onComplete.add(this.editInvoice.bind(this));
+      });
   }
 
   ngOnInit() {
