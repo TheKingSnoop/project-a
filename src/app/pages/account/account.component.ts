@@ -21,6 +21,7 @@ import {
   registerables,
   Chart,
 } from 'chart.js';
+import { LoginService } from '../../services/login.service';
 Chart.register(...registerables);
 
 export interface InvDataTypes {
@@ -69,7 +70,8 @@ export class AccountComponent {
 
   constructor(
     private router: Router,
-    private invoicesService: InvoicesService
+    private invoicesService: InvoicesService,
+    private loginService: LoginService
   ) {
     this.displayedColumns = ['icon', 'name', 'dateCreated', 'options'];
     this.recentInvoice = 'Loading...';
@@ -157,5 +159,10 @@ export class AccountComponent {
 
   ngOnInit() {
     this.loadDashboard();
+    this.loginService.tokenRefreshed$.subscribe((res: boolean) => {
+      if(res) {
+        this.loadDashboard();
+      }
+    });
   }
 }

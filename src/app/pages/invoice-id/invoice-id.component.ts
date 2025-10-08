@@ -15,6 +15,7 @@ import {
 } from '@angular/cdk/layout';
 import { InvoicesService } from '../../services/invoices.service';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { LoginService } from '../../services/login.service';
 
 @Component({
   selector: 'app-invoice-id',
@@ -49,6 +50,7 @@ export class InvoiceIdComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private invoicesService: InvoicesService,
+    private loginService: LoginService,
     private breakpointObserver: BreakpointObserver,
     private router: Router,
     private snackBar: MatSnackBar
@@ -112,5 +114,10 @@ export class InvoiceIdComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadInvoiceById();
+    this.loginService.tokenRefreshed$.subscribe((res: boolean) => {
+      if(res) {
+        this.loadInvoiceById();
+      }
+    });
   }
 }

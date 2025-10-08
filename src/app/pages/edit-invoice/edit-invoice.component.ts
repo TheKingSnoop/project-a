@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Model } from 'survey-core';
 import { SurveyModule } from 'survey-angular-ui';
 import { json } from '../../services/surveyjs/createSurvey/json'; // adjust path as needed
+import { LoginService } from '../../services/login.service';
 
 @Component({
   selector: 'app-edit-invoice',
@@ -20,7 +21,8 @@ export class EditInvoiceComponent implements OnInit {
   constructor(
     private invoicesService: InvoicesService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private loginService: LoginService
   ) {}
 
   formatDate(dateString: string) {
@@ -94,5 +96,10 @@ export class EditInvoiceComponent implements OnInit {
     this.userId = this.route.snapshot.paramMap.get('userId') || '';
     this.invoiceId = this.route.snapshot.paramMap.get('invoiceId') || '';
     this.loadEditInvoiceForm();
+    this.loginService.tokenRefreshed$.subscribe((res: boolean) => {
+      if(res) {
+        this.loadEditInvoiceForm();
+      }
+    });
   }
 }
