@@ -15,6 +15,11 @@ import {
 } from '@angular/cdk/layout';
 import { InvoicesService } from '../../services/invoices.service';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
+import {
+  ConfirmationDialogComponent,
+  ConfirmationData,
+} from '../../components/confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-invoice-id',
@@ -51,7 +56,8 @@ export class InvoiceIdComponent implements OnInit {
     private invoicesService: InvoicesService,
     private breakpointObserver: BreakpointObserver,
     private router: Router,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private dialog: MatDialog
   ) {
     // Observe breakpoints for mobile responsiveness
     this.breakpointObserver
@@ -66,15 +72,34 @@ export class InvoiceIdComponent implements OnInit {
   }
 
   deleteInvoice() {
-    this.invoicesService
-      .deleteInvoiceById(this.userId, this.invoiceId)
-      .subscribe(() => {
-        this.snackBar.open('Invoice deleted successfully.', 'Close', {
-          duration: 3000,
-          verticalPosition: 'bottom',
-        });
-        this.router.navigate(['/account']);
-      });
+    const dialogData: ConfirmationData = {
+      title: 'Delete Invoice',
+      message:
+        'Are you sure you want to delete this invoice? This action cannot be undone.',
+      confirmText: 'Delete',
+      cancelText: 'Cancel',
+      type: 'danger',
+    };
+
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: '400px',
+      data: dialogData,
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result === true) {
+        // User confirmed deletion
+        this.invoicesService
+          .deleteInvoiceById(this.userId, this.invoiceId)
+          .subscribe((result: any) => {
+            if (result.success) {
+              this.ngOnInit();
+            } else {
+              alert('Error deleting invoice');
+            }
+          });
+      }
+    });
   }
 
   navigateToEditInvoice() {
