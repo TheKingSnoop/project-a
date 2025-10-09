@@ -76,7 +76,7 @@ export class AccountComponent {
   constructor(
     private router: Router,
     private invoicesService: InvoicesService,
-    private loginService: LoginService
+    private loginService: LoginService,
     private dialog: MatDialog
   ) {
     this.displayedColumns = ['icon', 'name', 'dateCreated', 'options'];
