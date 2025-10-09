@@ -11,6 +11,7 @@ import {MatTableModule} from '@angular/material/table';
 import {BreakpointObserver, Breakpoints, BreakpointState} from '@angular/cdk/layout';
 import { jwtDecode } from "jwt-decode";
 import { InvoicesService } from '../../services/invoices.service';
+import { LoginService } from '../../services/login.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -31,7 +32,7 @@ export class SidebarComponent {
     this.router.navigate([`/${page}`]);
   }
 
-  constructor(private router: Router, public invoiceService: InvoicesService) {
+  constructor(private router: Router, public invoiceService: InvoicesService, private loginService: LoginService) {
     this.breakpointObserver.observe([
       Breakpoints.Handset
     ]).subscribe((result: BreakpointState) => {
@@ -42,6 +43,20 @@ export class SidebarComponent {
         this.isMobile.set(false);
       }
     });
+
+    this.loginService.tokenExpired$.subscribe((res: boolean) => {
+      if(res) {
+        const obj = {
+          token: localStorage.getItem('jwt_token'),
+          refreshToken: localStorage.getItem('refresh_token')
+        }
+        this.loginService.getRefreshToken(obj).subscribe((response: any) => {
+          localStorage.setItem("jwt_token", response.accessToken);
+          localStorage.setItem("refresh_token", response.refreshToken);
+          this.loginService.tokenRefreshed$.next(true);
+        });
+      }
+    })
   }
 
   toggleOnMobile(sidenav: any) {

@@ -6,6 +6,7 @@ import { LoginService } from '../../services/login.service';
 import { Router } from '@angular/router';
 import {MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
+import { max } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -32,7 +33,8 @@ export class LoginComponent implements OnInit {
       password: formResults.password
     }).subscribe({
       next: (response) => {
-        localStorage.setItem("jwt_token", (response as any).token);
+        localStorage.setItem("jwt_token", (response as any).accessToken);
+        localStorage.setItem("refresh_token", (response as any).refreshToken);
         options.showSaveSuccess();
         setTimeout(() => {
           this.navigateToPage('account');

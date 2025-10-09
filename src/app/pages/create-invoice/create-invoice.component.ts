@@ -5,6 +5,7 @@ import { json } from '../../services/surveyjs/createSurvey/json';
 import { InvoicesService } from '../../services/invoices.service';
 import { Router } from '@angular/router';
 import { jwtDecode } from 'jwt-decode';
+import { LoginService } from '../../services/login.service';
 
 export interface JwtPayload {
   id: string;
@@ -22,6 +23,7 @@ export class CreateInvoiceComponent implements OnInit {
 
   constructor(
     private invoicesService: InvoicesService,
+    private loginService: LoginService,
     private router: Router
   ) {
     this.decodedJwtObject = { id: '', name: '' };
@@ -98,5 +100,10 @@ export class CreateInvoiceComponent implements OnInit {
   
   ngOnInit(): void {
     this.loadCreateInvoiceForm();
+    this.loginService.tokenRefreshed$.subscribe((res: boolean) => {
+      if(res) {
+        this.loadCreateInvoiceForm();
+      }
+    });
   }
 }

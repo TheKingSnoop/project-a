@@ -26,6 +26,7 @@ import {
   registerables,
   Chart,
 } from 'chart.js';
+import { LoginService } from '../../services/login.service';
 Chart.register(...registerables);
 
 export interface InvDataTypes {
@@ -75,6 +76,7 @@ export class AccountComponent {
   constructor(
     private router: Router,
     private invoicesService: InvoicesService,
+    private loginService: LoginService
     private dialog: MatDialog
   ) {
     this.displayedColumns = ['icon', 'name', 'dateCreated', 'options'];
@@ -183,5 +185,10 @@ export class AccountComponent {
 
   ngOnInit() {
     this.loadDashboard();
+    this.loginService.tokenRefreshed$.subscribe((res: boolean) => {
+      if(res) {
+        this.loadDashboard();
+      }
+    });
   }
 }
