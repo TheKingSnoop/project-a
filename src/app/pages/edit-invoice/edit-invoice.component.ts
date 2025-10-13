@@ -3,7 +3,7 @@ import { InvoicesService } from '../../services/invoices.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Model } from 'survey-core';
 import { SurveyModule } from 'survey-angular-ui';
-import { json } from '../../services/surveyjs/createSurvey/json'; // adjust path as needed
+import { json } from '../../services/surveyjs/editSurvey/json';
 import { LoginService } from '../../services/login.service';
 
 @Component({
@@ -25,22 +25,10 @@ export class EditInvoiceComponent implements OnInit {
     private loginService: LoginService
   ) {}
 
-  formatDate(dateString: string) {
-    if (dateString == "" || dateString == null || dateString == undefined) return '';
-    else {
-      const [year, month, day] = dateString.split('-');
-      return `${day}/${month}/${year}`;
-    }
-  }
-
   //this function sends the form data to the backend to update an existing invoice
   editInvoice(sender: any, options: any) {
     const invoiceFormResults = sender.data;
-    const formattedIssueDate = this.formatDate(invoiceFormResults.issueDate);
-    const formattedDueDate = this.formatDate(invoiceFormResults.dueDate);
-    options.showSaveInProgress();
-    this.invoicesService
-      .updateInvoiceById(this.userId, this.invoiceId, {
+    const dataToSend = {
         vatPercentage: invoiceFormResults.vatPercentage,
         invoiceItemsTotal: invoiceFormResults['invoiceItems-total'].amount,
         vat: invoiceFormResults.vat,
@@ -63,13 +51,20 @@ export class EditInvoiceComponent implements OnInit {
         clientPostCode: invoiceFormResults.clientPostCode,
         clientEmail: invoiceFormResults.clientEmail,
         referenceNumber: invoiceFormResults.referenceNumber,
-        issueDate: formattedIssueDate,
-        dueDate: formattedDueDate,
+        issueDate: invoiceFormResults.issueDate,
+        dueDate: invoiceFormResults.dueDate,
         nameOnAccount: invoiceFormResults.nameOnAccount,
         sortCode: invoiceFormResults.sortCode,
         accountNumber: invoiceFormResults.accountNumber,
         bankName: invoiceFormResults.bankName,
-      })
+        id: this.userId,
+      }
+    // const formattedIssueDate = this.formatDate(invoiceFormResults.issueDate);
+    // const formattedDueDate = this.formatDate(invoiceFormResults.dueDate);
+    options.showSaveInProgress();
+    if (invoiceFormResults.overwriteExistingInvoice === true) {
+this.invoicesService
+      .updateInvoiceById(this.userId, this.invoiceId, dataToSend)
       .subscribe((response) => {
         setTimeout(() => {
           this.router.navigate([
@@ -78,6 +73,16 @@ export class EditInvoiceComponent implements OnInit {
         }, 2000);
         options.showSaveSuccess();
       });
+    } else {
+      this.invoicesService.createInvoice(dataToSend).subscribe((response: any) => {
+        const invoiceId = response.payload.dbInvoiceId;
+        setTimeout(() => {
+          this.router.navigate([
+            `/account/create-invoice/invoice-created/${this.userId}/${invoiceId}/success`,
+          ]);
+        }, 2000);
+      });
+    }
   }
 
   loadEditInvoiceForm() {
@@ -87,7 +92,6 @@ export class EditInvoiceComponent implements OnInit {
         this.invoice = response;
         this.model = new Model(json);
         this.model.data = this.invoice.payload[0];
-        this.model.title = 'Edit Invoice';
         this.model.onComplete.add(this.editInvoice.bind(this));
       });
   }
