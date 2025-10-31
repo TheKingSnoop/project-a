@@ -52,7 +52,6 @@ export class EditInvoiceComponent implements OnInit {
         clientEmail: invoiceFormResults.clientEmail,
         referenceNumber: invoiceFormResults.referenceNumber,
         issueDate: invoiceFormResults.issueDate,
-        dueDate: invoiceFormResults.dueDate,
         nameOnAccount: invoiceFormResults.nameOnAccount,
         sortCode: invoiceFormResults.sortCode,
         accountNumber: invoiceFormResults.accountNumber,
@@ -60,7 +59,6 @@ export class EditInvoiceComponent implements OnInit {
         id: this.userId,
       }
     // const formattedIssueDate = this.formatDate(invoiceFormResults.issueDate);
-    // const formattedDueDate = this.formatDate(invoiceFormResults.dueDate);
     options.showSaveInProgress();
     if (invoiceFormResults.overwriteExistingInvoice === true) {
 this.invoicesService

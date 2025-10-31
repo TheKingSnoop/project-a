@@ -180,13 +180,6 @@ export const json = {
               "title": "Issue Date:",
               "isRequired": true,
               "inputType": "date"
-            },
-            {
-              "type": "text",
-              "name": "dueDate",
-              "startWithNewLine": false,
-              "title": "Due Date:",
-              "inputType": "date"
             }
           ]
         }
@@ -341,6 +334,7 @@ export const json = {
       ]
     }
   ],
+  "showPrevButton": false,
   "showProgressBar": true,
   "textUpdateMode": "onTyping",
   "completeText": "Generate Invoice",
