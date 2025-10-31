@@ -32,9 +32,6 @@
           <h3>INVOICE:</h3>
           <p><span class="span-label">Reference Number: </span>{{invoice().referenceNumber}}</p>
           <p><span class="span-label">Issue Date: </span>{{invoice().issueDate | date}}</p>
-          <p *ngIf="invoice().dueDate">
-            <span class="span-label">Due Date: </span>{{ invoice().dueDate | date }}
-          </p>
         </div>
       </mat-grid-tile>
       <mat-grid-tile colspan="2" rowspan="1.5">

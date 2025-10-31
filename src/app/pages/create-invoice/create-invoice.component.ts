@@ -58,7 +58,6 @@ export class CreateInvoiceComponent implements OnInit {
         clientEmail: invoiceFormResults.clientEmail,
         referenceNumber: invoiceFormResults.referenceNumber,
         issueDate: invoiceFormResults.issueDate,
-        dueDate: invoiceFormResults.dueDate,
         nameOnAccount: invoiceFormResults.nameOnAccount,
         sortCode: invoiceFormResults.sortCode,
         accountNumber: invoiceFormResults.accountNumber,
