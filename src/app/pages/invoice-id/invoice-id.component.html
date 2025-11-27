@@ -1,12 +1,14 @@
-<h1 class="page-title" *ngIf="invoice()">Invoice: {{ invoice().titleOfInvoice }}</h1>
-<div class="buttons">
-  <button mat-button (click)="downloadInvoice()"><mat-icon>download</mat-icon>Download PDF</button>
-  <button mat-flat-button id="btn-edit" (click)="navigateToEditInvoice()"><mat-icon>edit</mat-icon>Edit</button>
-  <button mat-flat-button id="btn-delete" (click)="deleteInvoice()"><mat-icon>delete</mat-icon>Delete</button>
+<div class="header">
+  <h1 class="page-title" *ngIf="invoice()">{{ invoice().titleOfInvoice }}</h1>
+  <div class="buttons">
+    <button mat-button (click)="downloadInvoice()"><mat-icon>download</mat-icon>Download PDF</button>
+    <button mat-flat-button id="btn-edit" (click)="navigateToEditInvoice()"><mat-icon>edit</mat-icon>Edit</button>
+    <button mat-flat-button id="btn-delete" (click)="deleteInvoice()"><mat-icon>delete</mat-icon>Delete</button>
+  </div>
 </div>
 <mat-divider/>
-<mat-grid-list *ngIf="invoice()" cols="2" rowHeight="250px" class="invoice-grid">
-      <mat-grid-tile colspan="2" rows="2">
+<mat-grid-list *ngIf="invoice()" cols="2" rowHeight="200px" class="invoice-grid">
+      <mat-grid-tile colspan="1" rows="2">
         <div class="invoice-tile">
           <h3>YOUR COMPANY:</h3>
           <p>{{invoice().nameOfYourCompany}}</p>
@@ -18,7 +20,7 @@
         </div>
       </mat-grid-tile>
       <mat-grid-tile [colspan]="columnSpan()" rowspan="1">
-        <div class="invoice-tile">
+        <div class="invoice-tile invoice-total">
           <h3>BILL TO:</h3>
           <p>{{invoice().clientName}}</p>
           <p>{{invoice().clientAddress}}</p>
@@ -27,8 +29,8 @@
           <p>{{invoice().clientEmail}}</p>
         </div>
       </mat-grid-tile>
-      <mat-grid-tile [colspan]="columnSpan()" rowspan="1">
-        <div class="invoice-tile invoice-total">
+      <mat-grid-tile colspan="2" rowspan="1">
+        <div class="invoice-tile">
           <h3>INVOICE:</h3>
           <p><span class="span-label">Reference Number: </span>{{invoice().referenceNumber}}</p>
           <p><span class="span-label">Issue Date: </span>{{invoice().issueDate | date}}</p>
