@@ -5,11 +5,11 @@
     </button>  
     </div>
     <div class="navbar-right" *ngIf="!isLoggedIn()">
-        <button mat-button (click)="navigateToPage('sign-up')">Sign Up</button>
-        <button mat-button (click)="navigateToPage('login')">Login</button>
+        <button mat-button (click)="navigateToPage('sign-up')"><mat-icon>person_add</mat-icon><p>Sign Up</p></button>
+        <button mat-button (click)="navigateToPage('login')"><mat-icon>login</mat-icon><p>Login</p></button>
     </div>
     <div class="navbar-right" *ngIf="isLoggedIn()">
-        <button mat-button (click)="navigateToPage('account')">My Account</button>
-        <button mat-button (click)="logout()">Logout</button>
+        <button mat-button (click)="navigateToPage('account')"><mat-icon>account_circle</mat-icon><p>My Account</p></button>
+        <button mat-button (click)="logout()"><mat-icon>logout</mat-icon><p>Logout</p></button>
     </div>
 </mat-toolbar>

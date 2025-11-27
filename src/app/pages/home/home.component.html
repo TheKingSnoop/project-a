@@ -1,11 +1,34 @@
 <div class="container hero-section">
+  <div class="subHeading">
+    <h3>Welcome to Your</h3>
+  </div>
   <div class="heading">
-    <h1 id="yourInvoice">Your Invoice</h1>
+    <h1 id="yourInvoice">Invoice</h1>
     <h1 id="generator">Generator</h1>
   </div>
   <div class="landing-buttons">
-    <button mat-flat-button *ngIf="isLoggedIn()" (click)="navigateToPage('account')">My Account<mat-icon>account_circle</mat-icon></button>
-    <button mat-flat-button class="tertiary" *ngIf="!isLoggedIn()" (click)="navigateToPage('sign-up')">Sign Up<mat-icon>person_add</mat-icon></button>
+    <button
+      mat-flat-button
+      *ngIf="isLoggedIn()"
+      (click)="navigateToPage('account')"
+    >
+      My Account<mat-icon>account_circle</mat-icon>
+    </button>
+    <button
+      mat-flat-button
+      *ngIf="!isLoggedIn()"
+      (click)="navigateToPage('login')"
+    >
+      Login<mat-icon>login</mat-icon>
+    </button>
+    <button
+      mat-flat-button
+      class="tertiary"
+      *ngIf="!isLoggedIn()"
+      (click)="navigateToPage('sign-up')"
+    >
+      Sign Up<mat-icon>person_add</mat-icon>
+    </button>
   </div>
   <div class="subHeading">
     <h3>Generate and manage your invoices effortlessly</h3>
@@ -13,11 +36,75 @@
 </div>
 <div class="container component">
   <div class="heading2">
-    <h1>Create and manage invoices. All in one place.</h1>
+    <h1>What you will get.</h1>
   </div>
-  <div class="subText">
-    <p>We help you create and manage invoices effortlessly. Create an account to get started today!</p>
+  <div class="card-container">
+    <mat-card class="card-item" *ngFor="let card of cards">
+      <img
+        mat-card-image
+        src="{{ card.img }}"
+        alt="Invoice Illustration"
+        class="image-item"
+      />
+      <mat-card-content>
+        <h3 class="card-title">{{ card.title }}</h3>
+        <p>{{ card.text }}</p>
+      </mat-card-content>
+    </mat-card>
   </div>
   <div class="landing-buttons">
-    <button *ngIf="!isLoggedIn()" mat-flat-button class="tertiary" (click)="navigateToPage('sign-up')">Get Started<mat-icon>person_add</mat-icon></button>
+    <button
+      *ngIf="!isLoggedIn()"
+      mat-flat-button
+      class="tertiary"
+      (click)="navigateToPage('sign-up')"
+    >
+      Get Started<mat-icon>person_add</mat-icon>
+    </button>
+  </div>
+</div>
+<div class="container component" id="twoColumns">
+  <div class="wrapper">
+    <div class="heading2">
+      <h1>Why choose us?</h1>
+    </div>
+    <div class="subText">
+      <mat-list class="list">
+        <mat-list-item role="listitem" *ngFor="let item of whyChooseList">
+          <mat-icon matListItemIcon>{{ item.icon }}</mat-icon>
+          {{ item.text }}
+        </mat-list-item>
+      </mat-list>
+    </div>
+  </div>
+  <img
+    src="invoiceComputer.jpg"
+    alt="Invoice printing out of monitor"
+    class="image"
+    id="border"
+  />
+</div>
+<div class="container component">
+  <div class="wrapper" id="border2">
+    <div class="heading2">
+      <h1>Need to create an invoice?</h1>
+    </div>
+    <div class="subText">
+      <p>
+        We help you create and manage invoices effortlessly. Create an account
+        to get started today!
+      </p>
+    </div>
+    <div class="landing-buttons">
+      <button
+        *ngIf="!isLoggedIn()"
+        mat-flat-button
+        class="tertiary"
+        (click)="navigateToPage('sign-up')"
+      >
+        Get Started<mat-icon>person_add</mat-icon>
+      </button>
+    </div>
+  </div>
+  <img src="invoicePay.png" alt="Invoice Illustration" class="image" />
 </div>

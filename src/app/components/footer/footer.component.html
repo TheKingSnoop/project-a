@@ -1,8 +1,15 @@
 <div class="footer-container container">
   <h2>Invoice Generator 2025</h2>
+  <img src="invoicePay.png" alt="Logo" height="100px" />
   <div class="links">
     <h4>Useful Links</h4>
-    <button mat-button class="footer-button">Sign Up</button>
-    <button mat-button class="footer-button">Login</button>
+     <div *ngIf="!isLoggedIn()">
+        <button mat-button (click)="navigateToPage('sign-up')"><p>Sign Up</p></button>
+        <button mat-button (click)="navigateToPage('login')"><p>Login</p></button>
+    </div>
+    <div *ngIf="isLoggedIn()">
+        <button mat-button (click)="navigateToPage('account')"><p>My Account</p></button>
+        <button mat-button (click)="logout()"><p>Logout</p></button>
+    </div>
   </div>
 </div>
