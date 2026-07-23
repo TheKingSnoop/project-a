@@ -1,4 +1,20 @@
 <h1 class="page-title">My Account</h1>
+<h2 class="sub-heading">My Details</h2>
+<p>These details are used for your account and invoices by default.</p>
+<div class="account-details space-between">
+  <div class="column">
+  <p>Company name: </p>
+  <p>First name: </p>
+  <p>Surname: </p>
+</div>
+<div class="column">
+  <p>Address:</p>
+  <p>City: </p>
+  <p>Postcode: </p>
+  <p>Email: </p>
+</div>
+  <button mat-flat-button color="secondary" (click)="navigateToPage('account/edit-details')">Edit my details</button>
+</div>
 <h2 class="sub-heading">All Invoices</h2>
 <div class="toolbar">
   <mat-form-field>
@@ -63,7 +79,7 @@
 </table>
 <mat-divider></mat-divider>
 <h2 class="sub-heading">Statistics</h2>
-<div class="invoice-statistics">
+<div class="invoice-statistics space-between">
   <mat-list>
     <mat-list-item>
       <mat-icon matListItemIcon>library_books</mat-icon>
