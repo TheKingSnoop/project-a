@@ -3,15 +3,16 @@
 <p>These details are used for your account and invoices by default.</p>
 <div class="account-details space-between">
   <div class="column">
-  <p>Company name: </p>
-  <p>First name: </p>
-  <p>Surname: </p>
+  <p>Company name: {{ userDetails.companyName }}</p>
+  <p>First name: {{ userDetails.name }}</p>
+  <p>Surname: {{ userDetails.surname }}</p>
 </div>
 <div class="column">
-  <p>Address:</p>
-  <p>City: </p>
-  <p>Postcode: </p>
-  <p>Email: </p>
+  <p>Address: {{ userDetails.address }}</p>
+  <p>City: {{ userDetails.city }}</p>
+  <p>Postcode: {{ userDetails.postCode }}</p>
+  <p>Email: {{ userDetails.email }}</p>
+  <p>Telephone: {{ userDetails.telephone }}</p>
 </div>
   <button mat-flat-button color="secondary" (click)="navigateToPage('account/edit-details')">Edit my details</button>
 </div>

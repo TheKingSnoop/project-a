@@ -10,8 +10,8 @@ export class EditMyDetailsService {
 
   constructor(private http: HttpClient) {}
 
-  editMyDetails(editMyDetailsFormResults: any) {
-    const editMyDetailsUrl = `${this.baseUrl}/users/edit-my-details`;
+  editMyDetails(id: string, editMyDetailsFormResults: any) {
+    const editMyDetailsUrl = `${this.baseUrl}/users/update-user/${id}`;
     return this.http.put(editMyDetailsUrl, editMyDetailsFormResults);
   }
 }

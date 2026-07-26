@@ -42,6 +42,17 @@ export interface JwtPayload {
   name: string;
 }
 
+export interface UserDetails {
+  name: string;
+  surname: string;
+  email: string;
+  address: string;
+  city: string;
+  postCode: string;
+  companyName: string;
+  telephone: string;
+}
+
 @Component({
   selector: 'app-account',
   imports: [
@@ -65,6 +76,7 @@ export class AccountComponent {
   recentInvoice: string;
   invoicesLength: number;
   decodedJwtObject: JwtPayload;
+  userDetails: UserDetails;
 
   folderTally = computed(() => {
     return this.invoicesService
@@ -85,6 +97,16 @@ export class AccountComponent {
     this.recentInvoice = 'Loading...';
     this.invoicesLength = 0;
     this.decodedJwtObject = { id: '', name: '' };
+    this.userDetails = {
+      name: '',
+      surname: '',
+      email: '',
+      address: '',
+      city: '',
+      postCode: '',
+      companyName: '',
+      telephone: '',
+    };
   }
 
   deleteInvoice(userId: string, invoiceId: string) {
@@ -186,6 +208,14 @@ export class AccountComponent {
   }
 
   ngOnInit() {
+    const token = localStorage.getItem('jwt_token');
+    if (token) {
+      this.decodedJwtObject = jwtDecode(token);
+    }
+    this.loginService.getUserDetailsById(this.decodedJwtObject.id).subscribe((response: any) => {
+      // API returns { success, payload }, so bind only the payload object.
+      this.userDetails = response.payload;
+    });
     this.loadDashboard();
     this.loginService.tokenRefreshed$.subscribe((res: boolean) => {
       if(res) {

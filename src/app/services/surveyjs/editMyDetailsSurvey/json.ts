@@ -43,7 +43,7 @@ export const json = {
             },
             {
               "type": "text",
-              "name": "postcode",
+              "name": "postCode",
               "startWithNewLine": false,
               "title": "Postcode:"
             },
