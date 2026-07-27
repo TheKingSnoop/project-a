@@ -21,7 +21,7 @@ export class EditMyDetailsService {
   }
 
   getClientDetailsById(id: string) {
-    const clientDetailsUrl = `${this.baseUrl}/clients/client/${id}`;
+    const clientDetailsUrl = `${this.baseUrl}/clients/list/${id}`;
     return this.http.get(clientDetailsUrl);
   }
 }
