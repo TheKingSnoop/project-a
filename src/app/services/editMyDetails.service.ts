@@ -14,4 +14,14 @@ export class EditMyDetailsService {
     const editMyDetailsUrl = `${this.baseUrl}/users/update-user/${id}`;
     return this.http.put(editMyDetailsUrl, editMyDetailsFormResults);
   }
+
+  addClientDetails(id: string, addClientDetailsFormResults: any) {
+    const addClientDetailsUrl = `${this.baseUrl}/clients/add/${id}`;
+    return this.http.post(addClientDetailsUrl, addClientDetailsFormResults);
+  }
+
+  getClientDetailsById(id: string) {
+    const clientDetailsUrl = `${this.baseUrl}/clients/client/${id}`;
+    return this.http.get(clientDetailsUrl);
+  }
 }

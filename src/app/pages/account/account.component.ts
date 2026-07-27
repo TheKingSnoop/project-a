@@ -53,6 +53,16 @@ export interface UserDetails {
   telephone: string;
 }
 
+export interface ClientDetails {
+  name: string;
+  surname: string;
+  email: string;
+  address: string;
+  city: string;
+  postCode: string;
+  companyName: string;
+}
+
 @Component({
   selector: 'app-account',
   imports: [
