@@ -6,6 +6,7 @@ import { InvoicesService } from '../../services/invoices.service';
 import { Router } from '@angular/router';
 import { jwtDecode } from 'jwt-decode';
 import { LoginService } from '../../services/login.service';
+import { ActivatedRoute } from '@angular/router';
 
 export interface JwtPayload {
   id: string;
@@ -21,11 +22,13 @@ export interface JwtPayload {
 export class CreateInvoiceComponent implements OnInit {
   model!: Model;
   decodedJwtObject: JwtPayload;
+  clientId: string | null = null;
 
   constructor(
     private invoicesService: InvoicesService,
     private loginService: LoginService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {
     this.decodedJwtObject = { id: '', name: '' };
   }
@@ -76,16 +79,24 @@ export class CreateInvoiceComponent implements OnInit {
       });
   }
 
-  //this function initializes the survey form
   loadCreateInvoiceForm() {
     const token = localStorage.getItem('jwt_token');
     if (token) {
       this.decodedJwtObject = jwtDecode(token);
+    const clientId = this.route.snapshot.paramMap.get('id');
+    if (clientId) {
+      this.invoicesService.getInvoiceDetailsByClientId(this.decodedJwtObject.id, clientId).subscribe((response: any) => {
+        const clientDetails = response.payload;
+        this.model = new Model(clientDetails);
+        this.model.onComplete.add(this.createInvoice.bind(this));
+      });
+    } else {
       this.model = new Model(json);
       this.model.onComplete.add(this.createInvoice.bind(this));
     }
+    }
   }
-  
+
   ngOnInit(): void {
     this.loadCreateInvoiceForm();
     this.loginService.tokenRefreshed$.subscribe((res: boolean) => {

@@ -20,6 +20,7 @@ export const routes: Routes = [
     children: [
       {path: '', component: AccountComponent },
       { path: 'create-invoice', component: CreateInvoiceComponent },
+      { path: 'create-invoice/:id', component: CreateInvoiceComponent },
       { path: 'create-invoice/invoice-created/:userId/:invoiceId/success', component: InvoiceCreatedComponent },
       { path: 'edit-invoice/:userId/:invoiceId', component: EditInvoiceComponent },
       { path: 'edit-details/:userId', component: EditMyDetailsComponent },

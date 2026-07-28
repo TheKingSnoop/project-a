@@ -41,4 +41,9 @@ export class InvoicesService {
     const updateInvoiceUrl = `${this.baseUrl}/invoices/update/${userId}/${invoiceId}`;
     return this.http.put(updateInvoiceUrl, updatedInvoiceData);
   }
+
+  getInvoiceDetailsByClientId(userId: string, clientId: string) {
+    const invoiceDetailsUrl = `${this.baseUrl}/invoices/form/${userId}/${clientId}`;
+    return this.http.get(invoiceDetailsUrl);
+  }
 }
