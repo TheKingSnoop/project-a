@@ -8,6 +8,8 @@ import { InvoiceIdComponent } from './pages/invoice-id/invoice-id.component';
 import { InvoiceCreatedComponent } from './pages/invoice-created/invoice-created.component';
 import { EditInvoiceComponent } from './pages/edit-invoice/edit-invoice.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { EditMyDetailsComponent } from './pages/edit-my-details/edit-my-details.component';
+import { AddClientDetailsComponent } from './pages/add-client-details/add-client-details.component';
 import { authGuard } from './guard/auth.guard';
 
 export const routes: Routes = [
@@ -18,9 +20,11 @@ export const routes: Routes = [
     children: [
       {path: '', component: AccountComponent },
       { path: 'create-invoice', component: CreateInvoiceComponent },
-      { path: ':userId/:invoiceId', component: InvoiceIdComponent },
       { path: 'create-invoice/invoice-created/:userId/:invoiceId/success', component: InvoiceCreatedComponent },
       { path: 'edit-invoice/:userId/:invoiceId', component: EditInvoiceComponent },
+      { path: 'edit-details/:userId', component: EditMyDetailsComponent },
+      { path: 'add-client-details/:userId', component: AddClientDetailsComponent },
+      { path: ':userId/:invoiceId', component: InvoiceIdComponent }
     ],
   },
   { path: 'sign-up', component: SignUpComponent },

@@ -20,6 +20,11 @@ export class LoginService {
     return this.http.post(loginUrl, credentials);
   }
 
+  getUserDetailsById(id: string) {
+    const userDetailsUrl = `${this.baseUrl}/users/user/${id}`;
+    return this.http.get(userDetailsUrl);
+  }
+
   getToken() {
     const token = localStorage.getItem('jwt_token');
     if (token) {

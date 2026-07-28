@@ -18,6 +18,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 //jwt-decode
 import { jwtDecode } from 'jwt-decode';
 import { InvoicesService } from '../../services/invoices.service';
+import { LoginService } from '../../services/login.service';
+import { EditMyDetailsService } from '../../services/editMyDetails.service';
 //chartJs
 import { BaseChartDirective } from 'ng2-charts';
 import {
@@ -27,7 +29,6 @@ import {
   registerables,
   Chart,
 } from 'chart.js';
-import { LoginService } from '../../services/login.service';
 Chart.register(...registerables);
 
 export interface InvDataTypes {
@@ -40,6 +41,27 @@ export interface InvDataTypes {
 export interface JwtPayload {
   id: string;
   name: string;
+}
+
+export interface UserDetails {
+  name: string;
+  surname: string;
+  email: string;
+  address: string;
+  city: string;
+  postCode: string;
+  companyName: string;
+  telephone: string;
+}
+
+export interface ClientDetails {
+  name: string;
+  surname: string;
+  email: string;
+  address: string;
+  city: string;
+  postCode: string;
+  companyName: string;
 }
 
 @Component({
@@ -61,10 +83,15 @@ export interface JwtPayload {
 })
 export class AccountComponent {
   displayedColumns: string[];
+  clientDisplayedColumns: string[] = ['companyName', 'name', 'surname', 'email', 'address', 'city', 'postCode'];
+  clientDataSource = new MatTableDataSource<ClientDetails>();
   dataSource = new MatTableDataSource<InvDataTypes>();
+
   recentInvoice: string;
   invoicesLength: number;
   decodedJwtObject: JwtPayload;
+  userDetails: UserDetails;
+  clientDetails: ClientDetails;
 
   folderTally = computed(() => {
     return this.invoicesService
@@ -79,13 +106,35 @@ export class AccountComponent {
     private router: Router,
     private invoicesService: InvoicesService,
     private loginService: LoginService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private editMyDetailsService: EditMyDetailsService
   ) {
     this.displayedColumns = ['icon', 'name', 'dateCreated', 'options'];
     this.recentInvoice = 'Loading...';
     this.invoicesLength = 0;
     this.decodedJwtObject = { id: '', name: '' };
+    this.userDetails = {
+      name: '',
+      surname: '',
+      email: '',
+      address: '',
+      city: '',
+      postCode: '',
+      companyName: '',
+      telephone: '',
+    };
+    this.clientDetails = {
+      name: '',
+      surname: '',
+      email: '',
+      address: '',
+      city: '',
+      postCode: '',
+      companyName: '',
+    };
   }
+
+  clientListArray: ClientDetails[] = [];
 
   deleteInvoice(userId: string, invoiceId: string) {
     const dialogData: ConfirmationData = {
@@ -186,6 +235,17 @@ export class AccountComponent {
   }
 
   ngOnInit() {
+    const token = localStorage.getItem('jwt_token');
+    if (token) {
+      this.decodedJwtObject = jwtDecode(token);
+    }
+    this.loginService.getUserDetailsById(this.decodedJwtObject.id).subscribe((response: any) => {
+      this.userDetails = response.payload;
+    });
+    this.editMyDetailsService.getClientDetailsById(this.decodedJwtObject.id).subscribe((response: any) => {
+      //grab the response
+      this.clientListArray = response.clients;
+    });
     this.loadDashboard();
     this.loginService.tokenRefreshed$.subscribe((res: boolean) => {
       if(res) {
