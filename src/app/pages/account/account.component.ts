@@ -58,9 +58,6 @@ export interface ClientDetails {
   name: string;
   surname: string;
   email: string;
-  address: string;
-  city: string;
-  postCode: string;
   companyName: string;
 }
 
@@ -83,7 +80,7 @@ export interface ClientDetails {
 })
 export class AccountComponent {
   displayedColumns: string[];
-  clientDisplayedColumns: string[] = ['companyName', 'name', 'surname', 'email', 'address', 'city', 'postCode'];
+  clientDisplayedColumns: string[] = ['companyName', 'name', 'surname', 'email', 'invoice'];
   clientDataSource = new MatTableDataSource<ClientDetails>();
   dataSource = new MatTableDataSource<InvDataTypes>();
 
@@ -127,9 +124,6 @@ export class AccountComponent {
       name: '',
       surname: '',
       email: '',
-      address: '',
-      city: '',
-      postCode: '',
       companyName: '',
     };
   }
@@ -243,7 +237,6 @@ export class AccountComponent {
       this.userDetails = response.payload;
     });
     this.editMyDetailsService.getClientDetailsById(this.decodedJwtObject.id).subscribe((response: any) => {
-      //grab the response
       this.clientListArray = response.clients;
     });
     this.loadDashboard();
