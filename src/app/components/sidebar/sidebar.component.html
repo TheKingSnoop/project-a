@@ -27,9 +27,9 @@
         <h2 matListItemTitle>
           {{ invoice.titleOfInvoice ? invoice.titleOfInvoice : 'No Title' }}
         </h2>
-        <h2 matListItemLine>
+        <p matListItemLine>
           {{ invoice.dateCreated? (invoice.dateCreated | date) : 'No Date' }}
-        </h2>
+        </p>
       </mat-list-item>
     </mat-nav-list>
     <mat-nav-list>

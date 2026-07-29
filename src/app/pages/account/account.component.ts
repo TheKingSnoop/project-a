@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, computed } from '@angular/core';
+import {MatCardModule} from '@angular/material/card';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -73,14 +74,15 @@ export interface ClientDetails {
     MatInputModule,
     MatTableModule,
     BaseChartDirective,
-    MatTooltipModule
+    MatTooltipModule,
+    MatCardModule
   ],
   templateUrl: './account.component.html',
   styleUrl: './account.component.scss',
 })
 export class AccountComponent {
   displayedColumns: string[];
-  clientDisplayedColumns: string[] = ['companyName', 'name', 'surname', 'email', 'invoice', 'delete'];
+  clientDisplayedColumns: string[] = ['icon', 'companyName', 'name', 'surname', 'email', 'invoice', 'delete'];
   clientDataSource = new MatTableDataSource<ClientDetails>();
   dataSource = new MatTableDataSource<InvDataTypes>();
 
