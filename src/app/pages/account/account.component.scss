@@ -1,3 +1,7 @@
+.my-details, .client-details, .all-invoices, .statistics {
+  margin-bottom: 40px;
+}
+
 .toolbar {
   display: flex;
   gap: 8px;
@@ -9,9 +13,13 @@
   min-width: 150px;
 }
 
-/* Structure */
+//table
 table {
   width: 100%;
+}
+
+.light-text {
+  color: var(--mat-sys-on-surface-variant);
 }
 
 .mat-mdc-form-field {
@@ -37,15 +45,22 @@ table {
   color: var(--mat-sys-on-surface-variant);
 }
 
-.space-between {
+.account-card {
+  width: fit-content;
   display: flex;
-  justify-content: space-between;
-  
+  justify-content: center;
 }
 
-.column {
+.card-content {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
+  gap: 40px;
+}
+
+.card-actions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
 }
 
 #delete {

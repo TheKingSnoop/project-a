@@ -46,4 +46,9 @@ export class InvoicesService {
     const invoiceDetailsUrl = `${this.baseUrl}/invoices/form/${userId}/${clientId}`;
     return this.http.get(invoiceDetailsUrl);
   }
+
+  deleteInvoiceByClientId(userId: string, clientId: string) {
+    const deleteInvoiceUrl = `${this.baseUrl}/clients/delete/${userId}/${clientId}`;
+    return this.http.delete(deleteInvoiceUrl);
+  }
 }

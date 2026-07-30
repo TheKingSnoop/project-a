@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, computed } from '@angular/core';
+import {MatCardModule} from '@angular/material/card';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -73,14 +74,15 @@ export interface ClientDetails {
     MatInputModule,
     MatTableModule,
     BaseChartDirective,
-    MatTooltipModule
+    MatTooltipModule,
+    MatCardModule
   ],
   templateUrl: './account.component.html',
   styleUrl: './account.component.scss',
 })
 export class AccountComponent {
   displayedColumns: string[];
-  clientDisplayedColumns: string[] = ['companyName', 'name', 'surname', 'email', 'invoice'];
+  clientDisplayedColumns: string[] = ['icon', 'companyName', 'name', 'surname', 'email', 'invoice', 'delete'];
   clientDataSource = new MatTableDataSource<ClientDetails>();
   dataSource = new MatTableDataSource<InvDataTypes>();
 
@@ -155,6 +157,37 @@ export class AccountComponent {
               this.ngOnInit();
             } else {
               alert('Error deleting invoice');
+            }
+          });
+      }
+    });
+  }
+
+  deleteInvoiceDetailsByClientId(userId: string, clientId: string) {
+    const dialogData: ConfirmationData = {
+      title: 'Delete Client Detail',
+      message:
+        'Are you sure you want to delete this client detail? This action cannot be undone.',
+      confirmText: 'Delete',
+      cancelText: 'Cancel',
+      type: 'danger',
+    };
+
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: '400px',
+      data: dialogData,
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result === true) {
+        // User confirmed deletion
+        this.invoicesService
+          .deleteInvoiceByClientId(userId, clientId)
+          .subscribe((result: any) => {
+            if (result.success) {
+              this.ngOnInit();
+            } else {
+              alert('Error deleting client detail');
             }
           });
       }
