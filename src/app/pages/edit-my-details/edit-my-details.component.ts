@@ -21,6 +21,10 @@ export interface UserDetails {
   postCode: string;
   companyName: string;
   telephone: string;
+  accountName: string;
+  sortCode: string;
+  accountNumber: string;
+  bankName: string;
 }
 
 @Component({
@@ -49,6 +53,11 @@ export class EditMyDetailsComponent implements OnInit {
       postCode: '',
       companyName: '',
       telephone: '',
+      accountName: '',
+      sortCode: '',
+      accountNumber: '',
+      bankName: '',
+
     };
   }
 
@@ -68,6 +77,10 @@ export class EditMyDetailsComponent implements OnInit {
         city: myEditMyDetailsFormResults.city,
         postCode: myEditMyDetailsFormResults.postCode,
         email: myEditMyDetailsFormResults.email,
+        accountName: myEditMyDetailsFormResults.accountName,
+        sortCode: myEditMyDetailsFormResults.sortCode,
+        accountNumber: myEditMyDetailsFormResults.accountNumber,
+        bankName: myEditMyDetailsFormResults.bankName,
       })
       .subscribe((response: any) => {
         setTimeout(() => {
@@ -91,6 +104,10 @@ export class EditMyDetailsComponent implements OnInit {
         city: this.userDetails.city,
         postCode: this.userDetails.postCode,
         telephone: this.userDetails.telephone,
+        accountName: this.userDetails.accountName,
+        sortCode: this.userDetails.sortCode,
+        accountNumber: this.userDetails.accountNumber,
+        bankName: this.userDetails.bankName,
       };
       this.model.onComplete.add(this.EditMyDetails.bind(this));
     }

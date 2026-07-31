@@ -53,6 +53,10 @@ export interface UserDetails {
   postCode: string;
   companyName: string;
   telephone: string;
+  accountName: string;
+  sortCode: string;
+  accountNumber: string;
+  bankName: string;
 }
 
 export interface ClientDetails {
@@ -121,6 +125,10 @@ export class AccountComponent {
       postCode: '',
       companyName: '',
       telephone: '',
+      accountName: '',
+      sortCode: '',
+      accountNumber: '',
+      bankName: '',
     };
     this.clientDetails = {
       name: '',

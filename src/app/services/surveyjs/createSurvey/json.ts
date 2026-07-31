@@ -21,6 +21,7 @@ export const json = {
               "type": "text",
               "name": "titleOfInvoice",
               "title": "Title of Invoice:",
+              "description": "File name to be saved into your account. This will not appear on the Invoice.",
               "isRequired": true
             }
           ]
@@ -122,8 +123,7 @@ export const json = {
               "type": "text",
               "name": "clientSurname",
               "startWithNewLine": false,
-              "title": "Client Surname:",
-              "isRequired": false
+              "title": "Client Surname:"
             },
             {
               "type": "text",
@@ -211,7 +211,8 @@ export const json = {
                 {
                   "name": "description",
                   "title": "Description",
-                  "cellType": "text"
+                  "cellType": "text",
+                  "placeholder": "Example: Watering plants per week"
                 },
                 {
                   "name": "price",
