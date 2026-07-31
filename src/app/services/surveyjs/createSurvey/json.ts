@@ -123,7 +123,7 @@ export const json = {
               "name": "clientSurname",
               "startWithNewLine": false,
               "title": "Client Surname:",
-              "isRequired": true
+              "isRequired": false
             },
             {
               "type": "text",
@@ -301,7 +301,7 @@ export const json = {
             {
               "type": "text",
               "name": "nameOnAccount",
-              "title": "Name on Account:",
+              "title": "Account Name:",
               "isRequired": true
             },
             {
