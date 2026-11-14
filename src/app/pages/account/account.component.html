@@ -45,6 +45,28 @@
             <p matListItemLine>{{ userDetails.email }}</p>
           </mat-list-item>
         </div>
+        <div class="column">
+          <mat-list-item>
+            <mat-icon matListItemIcon>account_balance</mat-icon>
+            <h3 matListItemTitle>Account Name:</h3>
+            <p matListItemLine>{{ userDetails.accountName }}</p>
+          </mat-list-item>
+          <mat-list-item>
+            <mat-icon matListItemIcon>credit_card</mat-icon>
+            <h3 matListItemTitle>Sort Code:</h3>
+            <p matListItemLine>{{ userDetails.sortCode }}</p>
+          </mat-list-item>
+          <mat-list-item>
+            <mat-icon matListItemIcon>account_balance_wallet</mat-icon>
+            <h3 matListItemTitle>Account Number:</h3>
+            <p matListItemLine>{{ userDetails.accountNumber }}</p>
+          </mat-list-item>
+          <mat-list-item>
+            <mat-icon matListItemIcon>account_balance</mat-icon>
+            <h3 matListItemTitle>Bank Name:</h3>
+            <p matListItemLine>{{ userDetails.bankName }}</p>
+          </mat-list-item>
+        </div>
       </div>
     </mat-card-content>
     <mat-card-actions class="card-actions">

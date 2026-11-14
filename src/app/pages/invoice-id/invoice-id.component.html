@@ -81,7 +81,7 @@
       <mat-grid-tile colspan="2" rowspan="1">
         <div class="invoice-tile">
           <h3>PAY BY BANK TRANSFER:</h3>
-          <p><span class="span-label">Account Name: </span>{{invoice().nameOnAccount}}</p>
+          <p><span class="span-label">Account Name: </span>{{invoice().accountName}}</p>
           <p><span class="span-label">Bank Sort Code: </span>{{invoice().sortCode}}</p>
           <p><span class="span-label">Bank Account Number: </span>{{invoice().accountNumber}}</p>
           <p *ngIf="invoice().bankName"><span class="span-label">Bank Name: </span>{{invoice().bankName}}</p>

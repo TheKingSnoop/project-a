@@ -45,6 +45,10 @@ export class AddClientDetailsComponent implements OnInit {
       city: myAddClientDetailsFormResults.city,
       post_code: myAddClientDetailsFormResults.postCode,
       email: myAddClientDetailsFormResults.email,
+      accountName: myAddClientDetailsFormResults.accountName,
+      sortCode: myAddClientDetailsFormResults.sortCode,
+      accountNumber: myAddClientDetailsFormResults.accountNumber,
+      bankName: myAddClientDetailsFormResults.bankName
     }).subscribe({
         next: (response) => {
           setTimeout(() => {

@@ -62,7 +62,7 @@ export class CreateInvoiceComponent implements OnInit {
         clientEmail: invoiceFormResults.clientEmail,
         referenceNumber: invoiceFormResults.referenceNumber,
         issueDate: invoiceFormResults.issueDate,
-        nameOnAccount: invoiceFormResults.nameOnAccount,
+        accountName: invoiceFormResults.accountName,
         sortCode: invoiceFormResults.sortCode,
         accountNumber: invoiceFormResults.accountNumber,
         bankName: invoiceFormResults.bankName,
@@ -87,6 +87,7 @@ export class CreateInvoiceComponent implements OnInit {
     if (clientId) {
       this.invoicesService.getInvoiceDetailsByClientId(this.decodedJwtObject.id, clientId).subscribe((response: any) => {
         const clientDetails = response.payload;
+        console.log('Client details loaded:', clientDetails);
         this.model = new Model(clientDetails);
         this.model.onComplete.add(this.createInvoice.bind(this));
       });

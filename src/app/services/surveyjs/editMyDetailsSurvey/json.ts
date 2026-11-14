@@ -57,6 +57,51 @@ export const json = {
           ]
         }
       ]
+    },
+    {
+      "name": "page2",
+      "description": "Enter bank account details where invoice will be paid into:",
+      "elements": [
+        {
+          "type": "panel",
+          "name": "bankDetails",
+          "title": "Bank Details",
+          "description": "Please enter your account details where the invoice will be paid into.",
+          "elements": [
+            {
+              "type": "text",
+              "name": "accountName",
+              "title": "Account Name",
+              "isRequired": true
+            },
+            {
+              "type": "text",
+              "name": "sortCode",
+              "startWithNewLine": false,
+              "title": "Sort Code:",
+              "isRequired": true
+            },
+            {
+              "type": "text",
+              "name": "accountNumber",
+              "startWithNewLine": false,
+              "title": "Account Number:",
+              "isRequired": true,
+              "validators": [
+                {
+                  "type": "expression"
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "name": "bankName",
+              "startWithNewLine": false,
+              "title": "Bank Name:"
+            }
+          ]
+        }
+      ]
     }
   ],
   "headerView": "advanced"
