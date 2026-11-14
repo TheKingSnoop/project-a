@@ -52,7 +52,7 @@ export class EditInvoiceComponent implements OnInit {
       clientEmail: invoiceFormResults.clientEmail,
       referenceNumber: invoiceFormResults.referenceNumber,
       issueDate: invoiceFormResults.issueDate,
-      nameOnAccount: invoiceFormResults.nameOnAccount,
+      accountName: invoiceFormResults.accountName,
       sortCode: invoiceFormResults.sortCode,
       accountNumber: invoiceFormResults.accountNumber,
       bankName: invoiceFormResults.bankName,

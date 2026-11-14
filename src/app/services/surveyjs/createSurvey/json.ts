@@ -301,7 +301,7 @@ export const json = {
           "elements": [
             {
               "type": "text",
-              "name": "nameOnAccount",
+              "name": "accountName",
               "title": "Account Name:",
               "isRequired": true
             },
