@@ -36,7 +36,7 @@ export class HomeComponent {
     {
       img: 'calculateTax.jpg',
       title: 'Automatic Tax Calculation',
-      text: 'No need to manually calculate totals or taxes, ensuring accuracy and saving you time.',
+      text: 'No need to manually calculate totals or taxes.',
     },
   ];
 

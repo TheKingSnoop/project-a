@@ -1,39 +1,13 @@
-.hero-section {
-    height: calc(100vh - 60px); /* Adjust height to account for navbar */
-    background-image: url("../../../../public/landingPage.jpg");
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-    text-align: center;
-    font-family: "Tektur", sans-serif;
-}
-
-.heading {
-    font-size: 3rem;
-    font-weight: bold;
-    text-transform: uppercase;
-}
-
-.heading2 {
-    font-size: 1.5rem;
-    font-weight: bold;
-    text-transform: uppercase;
-    font-family: "Tektur", sans-serif;
+p {
+    color: var(--mat-sys-secondary);
 }
 
 .card-title {
-    font-size: 1.2rem;
     font-weight: bold;
     margin-bottom: 10px;
-    font-family: "Tektur", sans-serif;
 }
 
-#yourInvoice {
-    color: var(--mat-sys-primary);
-    margin: 0px;
-}
-
-#generator {
+#yourInvoiceGenerator {
     color: var(--mat-sys-primary);
     margin: 0px;
 }
@@ -49,13 +23,7 @@
     width: 100%;
 }
 
-.landing-buttons {
-    margin: 40px;
-    display: flex;
-    gap: 10px;
-}
-
-.landing-buttons > button {
+button {
     width: 150px;
     border-radius: 5px;
 }
@@ -69,38 +37,34 @@
 
 .wrapper {
     border-radius: 10px;
-    // max-width: 1000px;
 }
-
-#twoColumns {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-around;
-}
-
-
 
 .list {
     text-align: left;
-    max-width: 500px;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+
+    .mat-mdc-list-item {
+        height: auto;
+        min-height: 48px;
+        padding-block: 8px;
+    }
+
+    p {
+        margin: 0;
+        white-space: normal;
+        overflow-wrap: anywhere;
+    }
 }
 
 .image {
     height: 400px
 }
 
-#border {
-    border: 2px solid var(--mat-sys-secondary);
-    border-radius: 10px;
-}
-
-#border2 {
-    background-color: var(--mat-sys-tertiary);
-    border-radius: 10px;
-    width: 100%;
-    color: var(--mat-sys-on-tertiary);
+#border {  
+    border-radius: 12px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.08);
 }
 
 .card-container {
@@ -108,12 +72,15 @@
     gap: 20px;
     justify-content: center;
     flex-wrap: wrap;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 .card-item {
     height: 400px;
     width: 300px;
     color: var(--mat-sys-secondary);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.08);
 }
 
 .image-item {
@@ -141,7 +108,249 @@
     }
 
     .image {
-        height: 200px;
+        height: auto;
+        max-height: 200px;
     }
 
+}
+
+img {
+    max-width: 100%;
+}
+
+.hero-text, .hero-graphics, .subText, .heading2 {
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+.list {
+    .mat-mdc-list-item,
+    .mdc-list-item__primary-text,
+    .mat-mdc-list-item-unscoped-content {
+        white-space: normal;
+        overflow: visible;
+        text-overflow: clip;
+    }
+}
+
+//New styles
+$text-primary: #1a1a2e;
+$accent-teal: #22d3aa;
+$dark-blue: #0f172a;
+
+.hero-section {
+  padding: 6rem 4rem;
+  max-width: 1200px;
+  margin: 0 auto;
+
+  .hero-content {
+    display: flex;
+    align-items: center;
+    gap: 4rem;
+  }
+
+  .hero-text {
+    flex: 1;
+
+    h1 {
+      font-size: 3.5rem;
+      line-height: 1.1;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      color: $dark-blue;
+      letter-spacing: -1px;
+    }
+
+    p {
+      font-size: 1.1rem;
+      color: var(--mat-sys-secondary);
+      line-height: 1.6;
+      margin-bottom: 2rem;
+      max-width: 480px;
+    }
+
+    .hero-cta-group {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 0.75rem;
+    }
+    .microcopy { color: #9ca3af; font-size: 0.8rem; }
+  }
+
+  .hero-graphics {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+  }
+}
+
+// Mockup Graphic
+.dashboard-mockup {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+  width: 100%;
+  max-width: 500px;
+  height: 350px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+
+  .mockup-header {
+    background: #f1f1f1;
+    padding: 10px 16px;
+    display: flex;
+    gap: 6px;
+    .dot {
+      width: 10px; height: 10px; border-radius: 50%;
+      &.red { background: #ff5f56; }
+      &.yellow { background: #ffbd2e; }
+      &.green { background: #27c93f; }
+    }
+  }
+
+  .mockup-body {
+    padding: 24px;
+    h3 { margin-top: 0; font-size: 1.2rem; margin-bottom: 24px; }
+    .chart-placeholder {
+      height: 120px;
+      background: linear-gradient(to right, #e2e8f0 10%, #f1f5f9 50%, #e2e8f0 90%);
+      border-radius: 8px;
+      margin-bottom: 24px;
+    }
+    .list-placeholder { height: 60px; background: #f8fafc; border-radius: 8px; }
+  }
+}
+
+// How It Works
+.how-it-works-section {
+  padding: 6rem 4rem;
+  text-align: center;
+  max-width: 1000px;
+  margin: 0 auto;
+
+  h2 { font-size: 2rem; font-weight: 700; margin-bottom: 0.5rem; }
+  .section-subtitle { color: var(--mat-sys-secondary); margin-bottom: 4rem; }
+
+  .steps-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3rem;
+    position: relative;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 32px;
+      left: 15%; right: 15%;
+      height: 2px;
+      background-image: linear-gradient(to right, #ccc 50%, transparent 50%);
+      background-size: 10px 10px;
+      z-index: 0;
+    }
+  }
+
+  .step-card {
+    position: relative;
+    z-index: 1;
+    background: transparent;
+
+    .icon-wrapper {
+      width: 72px; height: 72px; border-radius: 50%;
+      background: white; display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 1.5rem auto; box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      mat-icon { font-size: 48px; height: 48px; width: 48px; }
+      &.teal mat-icon { color: #0d9488; }
+      &.blue mat-icon { color: #2563eb; }
+      &.green mat-icon { color: #16a34a; }
+    }
+    h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.75rem; }
+  }
+}
+// Why Choose Us Section
+.why-choose-us-section {
+    padding: 6rem 4rem;
+  text-align: center;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.why-choose-us-grid {
+  display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 3rem;
+    position: relative;
+}
+
+/* RESPONSIVE DESIGN: TABLET*/
+
+@media (max-width: 1024px) {
+  .hero-section {
+    padding: 4rem 2rem;
+    .hero-content { gap: 2rem; }
+    .hero-text h1 { font-size: 2.8rem; }
+  }
+
+  .how-it-works-section {
+    padding: 4rem 2rem;
+    .steps-grid { gap: 2rem; }
+  }
+}
+
+/*RESPONSIVE DESIGN: MOBILE*/
+@media (max-width: 768px) {
+  // Stack Hero Section
+  .hero-section {
+    padding: 3rem 1.5rem;
+    
+    .hero-content {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .hero-text {
+      p { margin: 0 auto 2rem auto; }
+      h1 { font-size: 2.2rem; }
+      
+      .hero-cta-group {
+        flex-direction: column;
+        justify-content: center;
+        width: 100%;
+        max-width: 300px;
+        margin: 0 auto 1rem auto;
+        
+        button { width: 100%; height: 48px; }
+      }
+    }
+
+    .hero-graphics { justify-content: center; width: 100%; }
+    .dashboard-mockup { height: 280px; }
+  }
+
+   // How It Works Section
+  .how-it-works-section {
+    padding: 3rem 1rem;
+    
+    h1 { font-size: 1.75rem; }
+    .section-subtitle { margin-bottom: 2rem; }
+
+    .steps-grid {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 2rem;
+      &::before { display: none; } // Remove connecting line on mobile
+    }
+    
+    .step-card {
+      padding: 0 0.5rem;
+      overflow-wrap: anywhere;
+    }
+  }
+
+  // Why Choose Us Section on Mobile
+  .why-choose-us-section { padding: 3rem 1rem; }
+
+  .why-choose-us-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.5rem;
+  }
 }
